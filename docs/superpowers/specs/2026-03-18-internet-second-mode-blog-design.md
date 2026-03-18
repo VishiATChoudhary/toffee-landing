@@ -21,12 +21,15 @@ A thought leadership blog post establishing Toffee's thesis on the future of the
 Open with the punch: the companies that optimize for AI agents first will dominate the next era of commerce. Most businesses don't even know there's a race.
 
 Ground it immediately with data:
-- Imperva 2025 Bad Bot Report: non-human traffic overtook human traffic for the first time at 51% (source: https://cpl.thalesgroup.com/about-us/newsroom/2025-imperva-bad-bot-report-ai-internet-traffic)
+- Imperva 2025 Bad Bot Report: non-human traffic overtook human traffic for the first time at 51% (source: https://cpl.thalesgroup.com/about-us/newsroom/2025-imperva-bad-bot-report-ai-internet-traffic). **Important caveat:** most of that 51% is still traditional bot traffic — scrapers, crawlers, spam. But the composition is shifting. The new entrants are agents, and they're qualitatively different (Section 2 draws this line).
 - McKinsey projects agents will mediate $3-5T in consumer commerce by 2030 (source: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants)
+- a16z's 2026 AI outlook: "In 2026, people will start interfacing with the web through their agents" (source: https://a16z.com/notes-on-ai-apps-in-2026/)
 
-Then the nuance: Anthropic's AI Fluency Index (Feb 2026) shows the sample "likely skews towards early adopters" — AI power users are in a bubble. Anthropic Economic Index (Sept 2025) shows adoption correlates with wealth (1% higher GDP = 1.8% higher Claude usage). Most of the world hasn't felt this shift yet. That asymmetry is the opportunity.
+Then the nuance: Anthropic's AI Fluency Index (Feb 2026) shows the sample "likely skews towards early adopters" — AI power users are in a bubble. Anthropic Economic Index (Sept 2025) shows adoption correlates with wealth (1% higher GDP = 1.8% higher Claude usage). Most of the world hasn't felt this shift yet.
 - Source: https://www.anthropic.com/research/AI-fluency-index
 - Source: https://www.anthropic.com/research/anthropic-economic-index-september-2025-report
+
+**Explicitly connect the bubble to the opportunity:** That asymmetry *is* the first-mover advantage. The businesses that recognize this shift now — while competitors are still asleep — get to build for the agent economy before it's crowded. By the time the mainstream catches on, the early movers will already have the infrastructure, the data, and the optimization flywheel running.
 
 Close with the framing: the internet is moving from a single mode (human) to a dual mode (human + agent). This blog lays out what that means, what's needed, and why acting now matters.
 
@@ -42,15 +45,16 @@ The internet has had non-human actors for decades — scrapers, crawlers, spam b
 
 Agents are fundamentally different. The core distinction: **bots need context. Agents create it.** A bot follows a script — "go to this URL, extract this CSS selector, return the price." When the page changes, the bot breaks. An agent has intent, reasons about goals, adapts to what it finds.
 
+**Address the gray zone:** Yes, some sophisticated scrapers now use LLMs to adapt to page changes. That doesn't make them agents. The distinction isn't about technical sophistication — it's about intent. An agent acts on behalf of a specific user toward a goal. A bot extracts data for whoever deployed it. The LLM-powered scraper is a smarter bot, not a dumber agent.
+
 Sources:
 - ScienceDirect/arXiv taxonomy paper: "AI Agents vs. Agentic AI: A Conceptual Taxonomy, Applications and Challenges" (https://www.sciencedirect.com/science/article/pii/S1566253525006712)
 - Visa Trusted Agent Protocol: built specifically to "distinguish a legitimate, credentialed agent from an anonymous bot" (https://investor.visa.com/news/news-details/2025/Visa-Introduces-Trusted-Agent-Protocol-An-Ecosystem-Led-Framework-for-AI-Commerce/default.aspx)
+- IEEE Spectrum — "The Agentic Web": "The Web today is very much designed for humans... agents don't operate like humans" (https://spectrum.ieee.org/agentic-web)
 
 The stance: the web's current binary (human = good, non-human = bad) is broken. We need a three-way distinction: humans (serve), agents (facilitate), bots (block). The inability to make this distinction is what's holding back the agent-ready internet.
 
 We want to facilitate non-malicious agents acting on behalf of real users. We don't want bots. The internet currently can't tell the difference — and that's the problem.
-
-Reference the author's forthcoming paper on the agent/bot distinction for deeper exploration.
 
 **Tone:** Confident, slightly contrarian. "Everyone lumps these together. That's a mistake."
 
@@ -64,7 +68,7 @@ Open with the flight search example. You want to book a flight. You open 6 tabs,
 
 Sources for the flight example:
 - YouGov 2025: 70% of US travelers find booking stress-inducing (https://yougov.com/en-us/reports/51330-us-travel-stress-report-2025)
-- Airlines: 87.8% cart abandonment rate (https://consumerserviceshub.com/travel-booking-journey-is-broken/)
+- Baymard Institute: average online cart abandonment rate is ~70%, airlines significantly higher (https://baymard.com/lists/cart-abandonment-rate)
 - GDS oligopoly: Amadeus/Sabre/Travelport control ~97% of bookings (https://www.businesstravelnews.com/State-of-the-Industry/2025/Part-2-CONTENT-FRAGMENTATION)
 
 **Three reasons why the current internet fails agents:**
@@ -75,13 +79,7 @@ Sources for the flight example:
    - Source: https://scrapeops.io/web-scraping-playbook/web-scraping-market-report-2025/
    - Source: https://scrapegraphai.com/blog/economics-of-web-scraping
 
-3. **The server side needs to decide.** The entity that owns the data should decide how to make it accessible to agents. Not scrapers guessing at DOM structures. Fundamental inversion needed: from clients extracting data to servers publishing it.
-
-Protocols are emerging — MCP (97M+ monthly SDK downloads, now under the Agentic AI Foundation), Skills, UCP, ACP, Visa's Trusted Agent Protocol — but implementation lags far behind the specs. Multiple bets on the table, no clear winner yet. What matters is that the direction is clear: structured, server-declared, agent-consumable interfaces.
-
-Sources for protocols:
-- MCP stats: https://www.pento.ai/blog/a-year-of-mcp-2025-review
-- MCP to Linux Foundation: https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation
+3. **The server side needs to decide.** The entity that owns the data should decide how to make it accessible to agents. Not scrapers guessing at DOM structures. Fundamental inversion needed: from clients extracting data to servers publishing it. The protocols are emerging (detailed in Section 4: Integration Capacity), but adoption at the storefront level is where everything stalls.
 
 **Tone:** Relatable frustration (flight example), then systemic critique.
 
@@ -92,6 +90,12 @@ Sources for protocols:
 **Purpose:** The core intellectual contribution. Name and define what the agent-ready internet needs.
 
 Frame: "We optimized the internet for human experience (UX). Now we need to optimize for agent experience — AgentEx."
+
+**Acknowledge the naming:** Be explicit that this is a framework we're proposing. "No one has named this yet. Here's our attempt." Intellectual honesty about coining a term builds more credibility with the target audience than presenting it as established fact.
+
+**Steelman the counterargument:** Before diving into the dimensions, briefly address the skeptic: "Agents haven't reliably delivered yet. Most demos are impressive; most real-world agent workflows still break. That's true — and it's precisely the point. They break because the infrastructure doesn't exist. The internet wasn't built for them. AgentEx is what needs to be built so agents can actually work." This turns the strongest objection into evidence for your thesis.
+
+Cite Gartner: 40% of enterprise apps will feature task-specific AI agents by end of 2026, up from less than 5% in 2025 (source: https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025). The demand side is exploding. The supply side (infrastructure) is lagging.
 
 **Four dimensions:**
 
@@ -115,7 +119,9 @@ Sources:
 Source:
 - IEEE Spectrum on "agent attention economy": https://spectrum.ieee.org/ai-agent-economy
 
-**4. Trust & Identity** — How do you distinguish a legitimate agent acting on behalf of a real user from a malicious bot? The internet needs an identity layer for agents.
+**4. Trust & Identity** — How do you distinguish a legitimate agent acting on behalf of a real user from a malicious bot? The internet needs an identity layer for agents. This includes authentication (is this agent who it claims to be?), authorization (what is it allowed to do?), and accountability (who is responsible when it acts?).
+
+**Brief note on privacy:** When an agent acts on your behalf across multiple storefronts, it potentially leaks preference data, purchasing behavior, and intent signals across parties. The identity layer must also be a privacy layer — agents need to authenticate without over-sharing.
 
 Sources:
 - Strata: 45B+ non-human identities deployed by end of 2025 (https://www.strata.io/blog/agentic-identity/new-identity-playbook-ai-agents-not-nhi-8b/)
@@ -178,9 +184,7 @@ But most businesses are asleep. Anthropic's data shows power users are in a bubb
 
 The window is open. It won't stay open.
 
-The companies that optimize for agents now — not just GEO, but full AgentEx — will own the next era of commerce. The rest will wonder what happened.
-
-**No CTA, no "sign up for Toffee." The thesis speaks for itself.**
+**No CTA, no "sign up for Toffee." The thesis speaks for itself. End on "The window is open. It won't stay open." — that's the last line.**
 
 ---
 
@@ -195,7 +199,7 @@ The companies that optimize for agents now — not just GEO, but full AgentEx �
 | 5 | ScienceDirect — AI Agents vs. Agentic AI Taxonomy | https://www.sciencedirect.com/science/article/pii/S1566253525006712 |
 | 6 | Visa Trusted Agent Protocol | https://investor.visa.com/news/news-details/2025/Visa-Introduces-Trusted-Agent-Protocol-An-Ecosystem-Led-Framework-for-AI-Commerce/default.aspx |
 | 7 | YouGov US Travel Stress Report 2025 | https://yougov.com/en-us/reports/51330-us-travel-stress-report-2025 |
-| 8 | Cart Abandonment — Airlines 87.8% | https://consumerserviceshub.com/travel-booking-journey-is-broken/ |
+| 8 | Baymard Institute — Cart Abandonment Rate | https://baymard.com/lists/cart-abandonment-rate |
 | 9 | Business Travel News — Content Fragmentation | https://www.businesstravelnews.com/State-of-the-Industry/2025/Part-2-CONTENT-FRAGMENTATION |
 | 10 | ScrapeOps — Web Scraping Market Report 2025 | https://scrapeops.io/web-scraping-playbook/web-scraping-market-report-2025/ |
 | 11 | ScrapeGraphAI — Economics of Web Scraping | https://scrapegraphai.com/blog/economics-of-web-scraping |
