@@ -159,7 +159,7 @@ export default function TimelineScrubber() {
         <div
           style={{
             fontSize: 13,
-            color: "rgba(255, 255, 255, 0.6)",
+            color: "rgba(255, 255, 255, 0.7)",
             marginTop: 6,
           }}
         >
@@ -201,7 +201,7 @@ export default function TimelineScrubber() {
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 color:
-                  activeIdx === i ? p.color : "rgba(255, 255, 255, 0.35)",
+                  activeIdx === i ? p.color : "rgba(255, 255, 255, 0.6)",
                 marginBottom: 4,
                 transition: "color 0.3s ease",
               }}
@@ -215,7 +215,7 @@ export default function TimelineScrubber() {
                 color:
                   activeIdx === i
                     ? "rgba(255, 255, 255, 0.95)"
-                    : "rgba(255, 255, 255, 0.4)",
+                    : "rgba(255, 255, 255, 0.65)",
                 lineHeight: 1.3,
                 transition: "all 0.3s ease",
               }}
@@ -228,7 +228,7 @@ export default function TimelineScrubber() {
                 color:
                   activeIdx === i
                     ? "rgba(255, 255, 255, 0.6)"
-                    : "rgba(255, 255, 255, 0.25)",
+                    : "rgba(255, 255, 255, 0.55)",
                 marginTop: 2,
                 transition: "color 0.3s ease",
               }}
@@ -376,7 +376,7 @@ export default function TimelineScrubber() {
             display: "flex",
             justifyContent: "space-between",
             fontSize: 10,
-            color: "rgba(255, 255, 255, 0.4)",
+            color: "rgba(255, 255, 255, 0.65)",
             fontWeight: 500,
             padding: "0 2px",
           }}
