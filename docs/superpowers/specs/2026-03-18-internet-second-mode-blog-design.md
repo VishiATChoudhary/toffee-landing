@@ -73,7 +73,7 @@ Sources for the flight example:
 
 **Three reasons why the current internet fails agents:**
 
-1. **Data providers gatekeep.** Access is expensive, restricted, designed for legacy integrations. Not unique to travel — it's the pattern across commerce. McKinsey: "If your catalog and policies are not machine-readable, agents simply will not find you."
+1. **Data providers gatekeep.** Access is expensive, restricted, designed for legacy integrations. Not unique to travel — it's the pattern across commerce. McKinsey: "If a catalog, policies, and value proposition are not machine-readable, agents — and by extension, shoppers — simply will not find you" (source: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants).
 
 2. **Scrapers are the wrong solution.** Scraping is brittle by design. ScrapeOps: 10-15% of crawlers need weekly fixes. Maintenance eats 60-70% of total cost. Legally it's a minefield (hiQ v. LinkedIn). Scraping is a client-side hack for a server-side problem.
    - Source: https://scrapeops.io/web-scraping-playbook/web-scraping-market-report-2025/
@@ -140,13 +140,13 @@ Introduce GEO — Generative Engine Optimization. Cite the foundational Aggarwal
 
 Sources:
 - Aggarwal et al. KDD 2024: https://arxiv.org/abs/2311.09735
-- ACM proceedings: https://dl.acm.org/doi/10.1145/3637528.3671900
+- ACM proceedings (source index #25): https://dl.acm.org/doi/10.1145/3637528.3671900
 
 GEO is real and it matters. But it answers exactly one question: "can an agent find you?"
 
 It doesn't answer: can an agent understand your product data? Can it transact on your site? Can you tell it apart from a bot? Can you measure what it did on your storefront?
 
-GEO lives inside the AgentEx framework — it's a subset of dimension 1 (observability/discoverability). The companies that treat GEO as the whole strategy will be like the companies that thought SEO was the whole digital strategy. You need the full framework.
+GEO lives inside the AgentEx framework — it touches Observability (discoverability is a precondition for observation) and Integration Capacity (structured content is how agents consume your data). But it's still just one technique within a much larger system. The companies that treat GEO as the whole strategy will be like the companies that thought SEO was the whole digital strategy. You need the full framework.
 
 **Tone:** Respectful of GEO, but clear that it's insufficient.
 
@@ -216,3 +216,4 @@ The window is open. It won't stay open.
 | 22 | IEEE Spectrum — The Agentic Web | https://spectrum.ieee.org/agentic-web |
 | 23 | a16z — Notes on AI Apps 2026 | https://a16z.com/notes-on-ai-apps-in-2026/ |
 | 24 | Gartner — 40% Enterprise Apps with AI Agents by 2026 | https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025 |
+| 25 | Aggarwal et al. — GEO (ACM KDD 2024 proceedings) | https://dl.acm.org/doi/10.1145/3637528.3671900 |
