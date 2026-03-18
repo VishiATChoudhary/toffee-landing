@@ -127,13 +127,13 @@
 }
 
 .content a {
-  color: var(--color-light-lavender);
+  color: #93c5fd;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .content a:hover {
-  color: var(--color-white);
+  color: #bfdbfe;
 }
 
 .content strong {
