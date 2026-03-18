@@ -9,6 +9,9 @@ export default function Nav() {
           Toffee
         </a>
         <div className={styles.actions}>
+          <Button href="/blog" variant="text">
+            Blog
+          </Button>
           <Button href="/login" variant="text">
             Log in
           </Button>
