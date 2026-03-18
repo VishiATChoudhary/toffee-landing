@@ -1,0 +1,83 @@
+---
+title: "The Internet Is Getting a Second Mode"
+description: "The companies that optimize for AI agents first will dominate the next era of commerce. Most businesses don't even know there's a race."
+date: "2026-03-18"
+---
+
+The companies that optimize for AI agents first will dominate the next era of commerce. Most businesses don't even know there's a race.
+
+This isn't speculation. For the first time in a decade of tracking, [non-human traffic overtook human traffic on the internet](https://cpl.thalesgroup.com/about-us/newsroom/2025-imperva-bad-bot-report-ai-internet-traffic) — 51% of all web traffic is now automated. Most of that is still traditional bot traffic: scrapers, crawlers, spam. But the composition is shifting. The new entrants are agents, and they are qualitatively different. [McKinsey projects](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants) that AI agents will mediate $3 to $5 trillion of global consumer commerce by 2030. As [a16z put it](https://a16z.com/notes-on-ai-apps-in-2026/): "In 2026, people will start interfacing with the web through their agents."
+
+But here's the nuance. [Anthropic's AI Fluency Index](https://www.anthropic.com/research/AI-fluency-index) shows that its research sample "likely skews towards early adopters." The [Anthropic Economic Index](https://www.anthropic.com/research/anthropic-economic-index-september-2025-report) found that a 1% higher per capita GDP correlates with 1.8% higher AI usage. AI power users are in a bubble. Most of the world hasn't felt this shift yet.
+
+That asymmetry is the first-mover advantage. The businesses that recognize this shift now — while competitors are still asleep — get to build for the agent economy before it's crowded. By the time the mainstream catches on, the early movers will already have the infrastructure, the data, and the optimization flywheel running.
+
+The internet is moving from a single mode to a dual mode: human and agent. Here's what that means, what's needed, and why acting now matters.
+
+## Bots Are Not Agents
+
+The internet has had non-human actors for decades. Scrapers, crawlers, spam bots — they're a nuisance. The industry built walls in response: CAPTCHAs, rate limiting, bot detection, robots.txt. We learned to treat non-human traffic as hostile by default.
+
+Agents are fundamentally different. The core distinction is simple: **bots need context. Agents create it.**
+
+A bot follows a script. "Go to this URL, extract this CSS selector, return the price." When the page changes, the bot breaks. An agent has intent. It reasons about goals, adapts to what it finds, and acts on behalf of a specific user. A [peer-reviewed taxonomy](https://www.sciencedirect.com/science/article/pii/S1566253525006712) published in Information Fusion draws this line formally: AI agents are modular, LLM-driven systems for task-specific automation with dynamic reasoning and coordinated autonomy.
+
+Yes, some sophisticated scrapers now use LLMs to adapt to page changes. That doesn't make them agents. The distinction isn't about technical sophistication — it's about intent. An agent acts on behalf of a specific user toward a goal. A bot extracts data for whoever deployed it. The LLM-powered scraper is a smarter bot, not a dumber agent.
+
+This distinction matters enough that [Visa built an entire protocol around it](https://investor.visa.com/news/news-details/2025/Visa-Introduces-Trusted-Agent-Protocol-An-Ecosystem-Led-Framework-for-AI-Commerce/default.aspx) — the Trusted Agent Protocol — designed specifically to "distinguish a legitimate, credentialed agent from an anonymous bot." As [IEEE Spectrum noted](https://spectrum.ieee.org/agentic-web), "The Web today is very much designed for humans... agents don't operate like humans."
+
+The web's current binary — human equals good, non-human equals bad — is broken. We need a three-way distinction: humans (serve), agents (facilitate), bots (block). We want to welcome non-malicious agents acting on behalf of real users. We don't want bots. The internet currently can't tell the difference. That's the problem.
+
+## Why The Current Internet Fails Agents
+
+Try booking a flight. You open six tabs, compare prices across airlines, cross-reference dates, read the fine print. [70% of US travelers](https://yougov.com/en-us/reports/51330-us-travel-stress-report-2025) find the process stressful. [Cart abandonment rates](https://baymard.com/lists/cart-abandonment-rate) average around 70%, with airlines running significantly higher. The experience is terrible for humans. Now imagine your agent doing it for you. It should be better. Except it can't — and that failure is systemic.
+
+**Data providers gatekeep.** [Amadeus, Sabre, and Travelport control approximately 97%](https://www.businesstravelnews.com/State-of-the-Industry/2025/Part-2-CONTENT-FRAGMENTATION) of the global flight booking market. Access is expensive, restricted, and designed for legacy integrations. This isn't unique to travel — it's the pattern across commerce. McKinsey said it plainly: ["If a catalog, policies, and value proposition are not machine-readable, agents — and by extension, shoppers — simply will not find you."](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants)
+
+**Scrapers are the wrong solution.** The current workaround is scraping, and scraping is brittle by design. [ScrapeOps reports](https://scrapeops.io/web-scraping-playbook/web-scraping-market-report-2025/) that 10-15% of crawlers require weekly fixes due to DOM shifts and fingerprinting. [Maintenance consumes 60-70% of total scraping cost.](https://scrapegraphai.com/blog/economics-of-web-scraping) Scraping is a client-side hack for a server-side problem.
+
+**The server side needs to decide.** The entity that owns the data should decide how to make it accessible to agents. Not scrapers guessing at DOM structures. The fundamental inversion needed is clear: from clients extracting data to servers publishing it. The protocols are emerging — and I'll get to those — but adoption at the storefront level is where everything stalls.
+
+## The AgentEx Framework
+
+We optimized the internet for human experience. We call that UX. Now we need to optimize for agent experience. We're calling it AgentEx.
+
+No one has named this yet. Here's our attempt.
+
+First, a fair objection: agents haven't reliably delivered yet. Most demos are impressive; most real-world agent workflows still break. That's true — and it's precisely the point. They break because the infrastructure doesn't exist. The internet wasn't built for them. AgentEx is what needs to be built so agents can actually work. [Gartner predicts](https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025) that 40% of enterprise apps will feature task-specific AI agents by end of 2026, up from less than 5% in 2025. The demand side is exploding. The supply side — infrastructure — is lagging.
+
+AgentEx has four dimensions:
+
+**Observability.** You can't optimize what you can't see. Today's analytics are built for humans: page views, click-through rates, session duration. None of that maps to how agents interact with your site. Which agents are visiting? What components are they parsing? Where do they succeed or fail? Are they converting? [Quantum Metric](https://www.quantummetric.com/blog/how-to-build-an-ai-agent-ready-website) put it well: "Your next website visitor might not be human... brands need the ability to detect and segment AI traffic." Tools like [Dark Visitors](https://darkvisitors.com/) are early movers here. At Toffee, this is where we start — real agent interaction observability, not just checking if you show up in ChatGPT results.
+
+**Integration Capacity.** New protocols for structured agent-server communication are proliferating. [MCP](https://www.pento.ai/blog/a-year-of-mcp-2025-review) has reached 97 million monthly SDK downloads and has been [donated to the Agentic AI Foundation](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation) under the Linux Foundation, co-founded by Anthropic, OpenAI, Google, and Microsoft. Skills, UCP, ACP — different bets on how agents and services should talk. [Visa's Trusted Agent Protocol](https://investor.visa.com/news/news-details/2025/Visa-Introduces-Trusted-Agent-Protocol-An-Ecosystem-Led-Framework-for-AI-Commerce/default.aspx) tackles commerce specifically. The industry is racing to build the plumbing. What's missing is adoption at the storefront level.
+
+**Analytics.** Different from observability. Observability is "what happened." Analytics is "what does it mean." Agent conversion funnels look nothing like human ones. An agent doesn't browse — it evaluates, compares, decides. We need new metrics: agent discoverability score, data structure quality, machine-readability index, agent conversion rate. The entire analytics stack needs rethinking. [IEEE Spectrum](https://spectrum.ieee.org/ai-agent-economy) describes an emerging "agent attention economy" where the signals that matter are changing entirely.
+
+**Trust & Identity.** How do you distinguish a legitimate agent acting on behalf of a real user from a malicious bot? [Strata reports](https://www.strata.io/blog/agentic-identity/new-identity-playbook-ai-agents-not-nhi-8b/) that over 45 billion non-human identities were deployed by end of 2025 — more than 12 times the global human workforce. [ISACA warns](https://www.isaca.org/resources/news-and-trends/industry-news/2025/the-looming-authorization-crisis-why-traditional-iam-fails-agentic-ai) that traditional identity and access management "cannot yet distinguish between good bots and bad bots." [Visa's Trusted Agent Protocol](https://investor.visa.com/news/news-details/2025/Visa-Introduces-Trusted-Agent-Protocol-An-Ecosystem-Led-Framework-for-AI-Commerce/default.aspx) and [Skyfire's KYAPay protocol](https://www.businesswire.com/news/home/20251218520399/en/Skyfire-Demonstrates-Secure-Agentic-Commerce-Purchase-Using-the-KYAPay-Protocol-and-Visa-Intelligent-Commerce) are first attempts. And there's a privacy dimension too: when an agent acts on your behalf across multiple storefronts, it potentially leaks preference data and purchasing behavior across parties. The identity layer must also be a privacy layer.
+
+## GEO Is Not Enough
+
+Most people's first instinct when they hear "optimize for AI" is GEO — Generative Engine Optimization. [Aggarwal et al.](https://arxiv.org/abs/2311.09735) introduced the concept at [KDD 2024](https://dl.acm.org/doi/10.1145/3637528.3671900): the practice of structuring digital content to improve visibility in AI-generated responses. It can boost source visibility by up to 40%. Think of it as SEO's natural successor — instead of ranking in Google's blue links, you're showing up in an LLM's answer.
+
+GEO is real and it matters. But it answers exactly one question: can an agent find you?
+
+It doesn't answer: can an agent understand your product data? Can it transact on your site? Can you tell it apart from a bot? Can you measure what it did on your storefront?
+
+GEO touches Observability — discoverability is a precondition for observation — and Integration Capacity, since structured content is how agents consume your data. But it's still just one technique within a much larger system. The companies that treat GEO as the whole strategy will be like the companies that thought SEO was the whole digital strategy. You need the full framework.
+
+## The Timeline
+
+**Phase 1: Human-Only Internet (1990s–2010s).** The web was built for humans. Browsers, links, forms, shopping carts. Non-human traffic existed only as a nuisance — scrapers and spam bots. The response was defensive: CAPTCHAs, rate limiting, bot detection. The assumption was simple: legitimate traffic is human.
+
+**Phase 2: Hybrid Mode (2024–2026).** This is where we are now. Agents are emerging but the internet hasn't adapted. Non-human traffic has crossed 51%. AI agents are trying to shop, book, and research — but they're hitting walls built to keep bots out. Businesses are starting to ask "how do I show up in ChatGPT?" That's GEO. It's a start, but it's not the full picture. Toffee's first product — agent observability — lives in this phase. You can't transition to the next phase if you can't see what's happening in this one.
+
+**Phase 3: Dual-Mode Internet (2027+).** The internet runs in two modes: Human Mode and Agent Mode. Storefronts serve both. Protocols like MCP, Skills, UCP, ACP, and Visa's Trusted Agent Protocol are mature and adopted. Agent identity is solved. Analytics are bifurcated. [Gartner projects](https://www.digitalcommerce360.com/2025/11/28/gartner-ai-agents-15-trillion-in-b2b-purchases-by-2028/) that by 2028, 90% of B2B buying will be AI-agent intermediated, pushing over $15 trillion through agent exchanges. The companies that optimized early — during the hybrid phase — are the ones capturing that value.
+
+## The Window
+
+The internet is bifurcating. A new actor is here — not a bot, not a human, but an agent acting with intent on behalf of real users with real money. The infrastructure to serve this actor is being built right now. Protocols are proliferating. The first observability tools are emerging. The frameworks are being named.
+
+But most businesses are asleep. Anthropic's own data shows AI power users are still in a bubble. McKinsey says if you're not machine-readable, agents won't find you. Gartner says 90% of B2B buying will be agent-intermediated by 2028.
+
+The window is open. It won't stay open.
