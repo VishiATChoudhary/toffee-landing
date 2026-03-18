@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Toffee — E-commerce AI Agent Optimization",
   description:
     "Toffee helps e-commerce brands optimize their storefronts for AI shopping agents. Analyze, learn, and increase revenue.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Toffee — E-commerce AI Agent Optimization",
     description:
