@@ -1,0 +1,99 @@
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + 48px) 24px 96px;
+  color: var(--color-deep-ink);
+}
+
+.header {
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--color-light-lavender);
+  padding-bottom: 32px;
+}
+
+.date {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-muted-grey);
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.15;
+  color: var(--color-deep-violet);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: var(--color-mid-purple);
+  line-height: 1.5;
+}
+
+/* ── Prose styles for MDX content ── */
+.content {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--color-deep-ink);
+}
+
+.content h2 {
+  font-size: 1.5rem;
+  color: var(--color-deep-violet);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.content h3 {
+  font-size: 1.25rem;
+  color: var(--color-mid-purple);
+  margin-top: 32px;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.content p {
+  margin-bottom: 24px;
+}
+
+.content a {
+  color: var(--color-electric-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.content a:hover {
+  color: var(--color-soft-lavender);
+}
+
+.content strong {
+  font-weight: 700;
+  color: var(--color-deep-violet);
+}
+
+.content blockquote {
+  border-left: 3px solid var(--color-soft-lavender);
+  padding-left: 20px;
+  margin: 24px 0;
+  color: var(--color-mid-purple);
+  font-style: italic;
+}
+
+.content ul,
+.content ol {
+  margin-bottom: 24px;
+  padding-left: 24px;
+}
+
+.content li {
+  margin-bottom: 8px;
+}
+
+.content hr {
+  border: none;
+  border-top: 1px solid var(--color-light-lavender);
+  margin: 48px 0;
+}
