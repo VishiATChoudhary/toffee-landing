@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+:root {
+  --color-deep-violet: #3D1F6B;
+  --color-mid-purple: #5A3A7E;
+  --color-soft-lavender: #8B5FBF;
+  --color-electric-blue: #3B82F6;
+  --color-deep-ink: #1A1A2E;
+  --color-white: #FFFFFF;
+  --color-light-lavender: #C8B8E8;
+  --color-muted-grey: #C8C8C8;
+
+  --content-max-width: 1200px;
+  --section-padding: clamp(60px, 10vw, 120px);
+  --nav-height: 64px;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'ABeeZee', sans-serif;
+  color: var(--color-white);
+  background: linear-gradient(180deg, #4671B3 0%, #D65EAA 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Grain Texture — above gradient, behind content ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+
+
+/* ── Scroll Animations ── */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* stagger children */
+.animate-on-scroll.visible:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.animate-on-scroll.visible:nth-child(3) {
+  transition-delay: 0.2s;
+}

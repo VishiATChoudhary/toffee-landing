@@ -1,0 +1,30 @@
+.footer {
+  padding: var(--section-padding) 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.wordmark {
+  font-size: clamp(200px, 44vw, 640px);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-mid-purple);
+  opacity: 0.35;
+  user-select: none;
+  -webkit-text-stroke: 6px var(--color-mid-purple);
+  paint-order: stroke fill;
+}
+
+.copyright {
+  font-size: 14px;
+  color: var(--color-muted-grey);
+}
