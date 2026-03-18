@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
+import { blogComponents } from "@/components/blog/mdx-components";
+import TableOfContents from "@/components/blog/TableOfContents";
 import styles from "./page.module.css";
 
 interface Props {
@@ -34,21 +36,30 @@ export default async function BlogPost({ params }: Props) {
   const post = getPostBySlug(slug);
 
   return (
-    <article className={styles.article}>
-      <header className={styles.header}>
-        <time className={styles.date} dateTime={post.date}>
-          {new Date(post.date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-        <h1 className={styles.title}>{post.title}</h1>
-        <p className={styles.description}>{post.description}</p>
-      </header>
-      <div className={styles.content}>
-        <MDXRemote source={post.content} />
-      </div>
-    </article>
+    <div className={styles.wrapper}>
+      <nav className={styles.postNav}>
+        <a href="/" className={styles.wordmark}>Toffee</a>
+        <a href="/blog" className={styles.backLink}>&larr; Blog</a>
+      </nav>
+      <article className={styles.article}>
+        <header className={styles.header}>
+          <time className={styles.date} dateTime={post.date}>
+            {new Date(post.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
+          <h1 className={styles.title}>{post.title}</h1>
+          <p className={styles.description}>{post.description}</p>
+        </header>
+        <div className={styles.content} data-mdx-content>
+          <MDXRemote source={post.content} components={blogComponents} />
+        </div>
+      </article>
+      <aside className={styles.sidebar}>
+        <TableOfContents />
+      </aside>
+    </div>
   );
 }

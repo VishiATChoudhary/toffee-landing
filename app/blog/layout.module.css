@@ -1,32 +1,5 @@
 .blogLayout {
   min-height: 100vh;
-  background: #fafafa;
   position: relative;
   z-index: 1;
-  color: var(--color-deep-ink);
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--nav-height);
-  padding: 0 24px;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.wordmark {
-  font-size: 1.25rem;
-  color: var(--color-deep-violet);
-  font-style: italic;
-}
-
-.blogLink {
-  font-size: 0.875rem;
-  color: var(--color-mid-purple);
-}
-
-.blogLink:hover {
-  color: var(--color-deep-violet);
 }
