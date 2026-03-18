@@ -127,13 +127,15 @@
 }
 
 .content a {
-  color: #93c5fd;
+  color: #ffffff;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
 }
 
 .content a:hover {
-  color: #bfdbfe;
+  text-decoration-color: #ffffff;
 }
 
 .content strong {
