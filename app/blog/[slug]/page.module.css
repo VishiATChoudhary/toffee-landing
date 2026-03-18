@@ -1,12 +1,47 @@
+/* ── Gradient background ── */
+.gradientBg {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #4671B3 0%, #D65EAA 100%);
+  background-attachment: fixed;
+  padding: 0 24px 96px;
+}
+
+/* ── Nav ── */
+.postNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+.wordmark {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-white);
+  text-decoration: none;
+  font-style: italic;
+}
+
+.backLink {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--color-white);
+}
+
+/* ── Content grid ── */
 .wrapper {
   display: grid;
   grid-template-columns: 1fr;
   max-width: 720px;
   margin: 0 auto;
-  padding: 0 24px 96px;
-  min-height: 100vh;
-  background: #fafafa;
-  color: var(--color-deep-ink);
+  gap: 0;
 }
 
 @media (min-width: 1100px) {
@@ -17,74 +52,49 @@
   }
 }
 
-.postNav {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--nav-height);
-  padding-top: 8px;
-}
-
-.wordmark {
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--color-deep-violet);
-  text-decoration: none;
-  font-style: italic;
-}
-
-.backLink {
-  font-size: 0.875rem;
-  color: var(--color-mid-purple);
-  text-decoration: none;
-}
-
-.backLink:hover {
-  color: var(--color-deep-violet);
-}
-
-.sidebar {
-  display: none;
-  position: relative;
-}
-
-@media (min-width: 1100px) {
-  .sidebar {
-    display: block;
-  }
-}
-
+/* ── Glass panel article ── */
 .article {
   min-width: 0;
-  color: var(--color-deep-ink);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 48px 40px;
+  color: var(--color-white);
+}
+
+@media (max-width: 600px) {
+  .article {
+    padding: 32px 20px;
+    border-radius: 14px;
+  }
 }
 
 .header {
   margin-bottom: 48px;
-  border-bottom: 1px solid var(--color-light-lavender);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding-bottom: 32px;
 }
 
 .date {
   display: block;
   font-size: 0.875rem;
-  color: var(--color-muted-grey);
+  color: var(--color-light-lavender);
   margin-bottom: 12px;
 }
 
 .title {
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.15;
-  color: var(--color-deep-violet);
+  color: var(--color-white);
   margin-bottom: 16px;
   font-weight: 400;
 }
 
 .description {
   font-size: 1.25rem;
-  color: var(--color-mid-purple);
+  color: var(--color-light-lavender);
   line-height: 1.5;
 }
 
@@ -92,12 +102,12 @@
 .content {
   font-size: 1.125rem;
   line-height: 1.75;
-  color: var(--color-deep-ink);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .content h2 {
   font-size: 1.5rem;
-  color: var(--color-deep-violet);
+  color: var(--color-white);
   margin-top: 48px;
   margin-bottom: 16px;
   font-weight: 400;
@@ -106,7 +116,7 @@
 
 .content h3 {
   font-size: 1.25rem;
-  color: var(--color-mid-purple);
+  color: var(--color-light-lavender);
   margin-top: 32px;
   margin-bottom: 12px;
   font-weight: 400;
@@ -117,25 +127,25 @@
 }
 
 .content a {
-  color: var(--color-electric-blue);
+  color: var(--color-light-lavender);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .content a:hover {
-  color: var(--color-soft-lavender);
+  color: var(--color-white);
 }
 
 .content strong {
   font-weight: 700;
-  color: var(--color-deep-violet);
+  color: var(--color-white);
 }
 
 .content blockquote {
   border-left: 3px solid var(--color-soft-lavender);
   padding-left: 20px;
   margin: 24px 0;
-  color: var(--color-mid-purple);
+  color: var(--color-light-lavender);
   font-style: italic;
 }
 
@@ -151,6 +161,18 @@
 
 .content hr {
   border: none;
-  border-top: 1px solid var(--color-light-lavender);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   margin: 48px 0;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  display: none;
+  position: relative;
+}
+
+@media (min-width: 1100px) {
+  .sidebar {
+    display: block;
+  }
 }

@@ -36,30 +36,32 @@ export default async function BlogPost({ params }: Props) {
   const post = getPostBySlug(slug);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.gradientBg}>
       <nav className={styles.postNav}>
         <a href="/" className={styles.wordmark}>Toffee</a>
         <a href="/blog" className={styles.backLink}>&larr; Blog</a>
       </nav>
-      <article className={styles.article}>
-        <header className={styles.header}>
-          <time className={styles.date} dateTime={post.date}>
-            {new Date(post.date).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
-          <h1 className={styles.title}>{post.title}</h1>
-          <p className={styles.description}>{post.description}</p>
-        </header>
-        <div className={styles.content} data-mdx-content>
-          <MDXRemote source={post.content} components={blogComponents} />
-        </div>
-      </article>
-      <aside className={styles.sidebar}>
-        <TableOfContents />
-      </aside>
+      <div className={styles.wrapper}>
+        <article className={styles.article}>
+          <header className={styles.header}>
+            <time className={styles.date} dateTime={post.date}>
+              {new Date(post.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <h1 className={styles.title}>{post.title}</h1>
+            <p className={styles.description}>{post.description}</p>
+          </header>
+          <div className={styles.content} data-mdx-content>
+            <MDXRemote source={post.content} components={blogComponents} />
+          </div>
+        </article>
+        <aside className={styles.sidebar}>
+          <TableOfContents />
+        </aside>
+      </div>
     </div>
   );
 }
