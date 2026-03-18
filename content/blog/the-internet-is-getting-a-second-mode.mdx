@@ -38,15 +38,13 @@ Try booking a flight. You open six tabs, compare prices across airlines, cross-r
 
 **The server side needs to decide.** The entity that owns the data should decide how to make it accessible to agents. Not scrapers guessing at DOM structures. The fundamental inversion needed is clear: from clients extracting data to servers publishing it. The protocols are emerging — and I'll get to those — but adoption at the storefront level is where everything stalls.
 
-## The AgentEx Framework
+## OIAT: The Four Pillars of an Agent-Ready Internet
 
-We optimized the internet for human experience. We call that UX. Now we need to optimize for agent experience. We're calling it AgentEx.
+What does the internet actually need to support agents? Not a better experience — agents don't have experiences. They need infrastructure. Specifically, they need four things: **Observability, Integration, Analytics, and Trust.** We call this the OIAT framework.
 
 No one has named this yet. Here's our attempt.
 
-First, a fair objection: agents haven't reliably delivered yet. Most demos are impressive; most real-world agent workflows still break. That's true — and it's precisely the point. They break because the infrastructure doesn't exist. The internet wasn't built for them. AgentEx is what needs to be built so agents can actually work. [Gartner predicts](https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025) that 40% of enterprise apps will feature task-specific AI agents by end of 2026, up from less than 5% in 2025. The demand side is exploding. The supply side — infrastructure — is lagging.
-
-AgentEx has four dimensions:
+First, a fair objection: agents haven't reliably delivered yet. Most demos are impressive; most real-world agent workflows still break. That's true — and it's precisely the point. They break because the infrastructure doesn't exist. The internet wasn't built for them. OIAT is what needs to be built so agents can actually work. [Gartner predicts](https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025) that 40% of enterprise apps will feature task-specific AI agents by end of 2026, up from less than 5% in 2025. The demand side is exploding. The supply side — infrastructure — is lagging.
 
 **Observability.** You can't optimize what you can't see. Today's analytics are built for humans: page views, click-through rates, session duration. None of that maps to how agents interact with your site. Which agents are visiting? What components are they parsing? Where do they succeed or fail? Are they converting? [Quantum Metric](https://www.quantummetric.com/blog/how-to-build-an-ai-agent-ready-website) put it well: "Your next website visitor might not be human... brands need the ability to detect and segment AI traffic." Tools like [Dark Visitors](https://darkvisitors.com/) are early movers here. At Toffee, this is where we start — real agent interaction observability, not just checking if you show up in ChatGPT results.
 
@@ -64,13 +62,13 @@ GEO is real and it matters. But it answers exactly one question: can an agent fi
 
 It doesn't answer: can an agent understand your product data? Can it transact on your site? Can you tell it apart from a bot? Can you measure what it did on your storefront?
 
-GEO touches Observability — discoverability is a precondition for observation — and Integration Capacity, since structured content is how agents consume your data. But it's still just one technique within a much larger system. The companies that treat GEO as the whole strategy will be like the companies that thought SEO was the whole digital strategy. You need the full framework.
+GEO touches Observability — discoverability is a precondition for observation — and Integration, since structured content is how agents consume your data. But it's still just one technique within a much larger system. The companies that treat GEO as the whole strategy will be like the companies that thought SEO was the whole digital strategy. You need the full OIAT stack.
 
 ## The Timeline
 
 **Phase 1: Human-Only Internet (1990s–2010s).** The web was built for humans. Browsers, links, forms, shopping carts. Non-human traffic existed only as a nuisance — scrapers and spam bots. The response was defensive: CAPTCHAs, rate limiting, bot detection. The assumption was simple: legitimate traffic is human.
 
-**Phase 2: Hybrid Mode (2024–2026).** This is where we are now. Agents are emerging but the internet hasn't adapted. Non-human traffic has crossed 51%. AI agents are trying to shop, book, and research — but they're hitting walls built to keep bots out. Businesses are starting to ask "how do I show up in ChatGPT?" That's GEO. It's a start, but it's not the full picture. Toffee's first product — agent observability — lives in this phase. You can't transition to the next phase if you can't see what's happening in this one.
+**Phase 2: Hybrid Mode (2024–2026).** This is where we are now. Agents are emerging but the internet hasn't adapted. Non-human traffic has crossed 51%. AI agents are trying to shop, book, and research — but they're hitting walls built to keep bots out. Businesses are starting to ask "how do I show up in ChatGPT?" That's GEO. It's a start, but it's not the full OIAT picture. Toffee's first product — agent observability — lives in this phase. You can't transition to the next phase if you can't see what's happening in this one.
 
 **Phase 3: Dual-Mode Internet (2027+).** The internet runs in two modes: Human Mode and Agent Mode. Storefronts serve both. Protocols like MCP, Skills, UCP, ACP, and Visa's Trusted Agent Protocol are mature and adopted. Agent identity is solved. Analytics are bifurcated. [Gartner projects](https://www.digitalcommerce360.com/2025/11/28/gartner-ai-agents-15-trillion-in-b2b-purchases-by-2028/) that by 2028, 90% of B2B buying will be AI-agent intermediated, pushing over $15 trillion through agent exchanges. The companies that optimized early — during the hybrid phase — are the ones capturing that value.
 
