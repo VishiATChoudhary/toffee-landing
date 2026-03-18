@@ -55,13 +55,14 @@
 /* ── Glass panel article ── */
 .article {
   min-width: 0;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 48px 40px;
   color: var(--color-white);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 600px) {
