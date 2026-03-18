@@ -4,8 +4,23 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: transparent;
   height: var(--nav-height);
+  background: transparent;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav.scrolled {
+  top: 12px;
+  left: 24px;
+  right: 24px;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  background: rgba(30, 30, 60, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .inner {
@@ -18,9 +33,13 @@
   justify-content: space-between;
 }
 
+.nav.scrolled .inner {
+  padding: 0 28px;
+}
+
 .wordmark {
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 26px;
+  font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-white);
 }

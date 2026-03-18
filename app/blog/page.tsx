@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import BlogClouds from "@/components/blog/BlogClouds";
+import Nav from "@/components/Nav";
 import styles from "./page.module.css";
 
 const posts = [
@@ -36,9 +37,7 @@ export default function BlogIndex() {
   return (
     <div className={styles.gradientBg}>
       <BlogClouds />
-      <nav className={styles.nav}>
-        <a href="/" className={styles.wordmark}>Toffee</a>
-      </nav>
+      <Nav />
       <main className={styles.main}>
         <h1 className={`${styles.heading} animate-on-scroll`}>Blog</h1>
         <div className={styles.grid}>

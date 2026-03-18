@@ -3,36 +3,7 @@
   min-height: 100vh;
   background: linear-gradient(180deg, #4671B3 0%, #D65EAA 100%);
   background-attachment: fixed;
-  padding: 0 24px 96px;
-}
-
-/* ── Nav ── */
-.postNav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--nav-height);
-  max-width: 1020px;
-  margin: 0 auto;
-}
-
-.wordmark {
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--color-white);
-  text-decoration: none;
-  font-style: italic;
-}
-
-.backLink {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
-}
-
-.backLink:hover {
-  color: var(--color-white);
+  padding: calc(var(--nav-height) + 24px) 24px 96px;
 }
 
 /* ── Content grid ── */
