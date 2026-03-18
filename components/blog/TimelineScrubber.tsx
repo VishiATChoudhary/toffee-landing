@@ -59,12 +59,50 @@ function injectStyles() {
 }
 
 export default function TimelineScrubber() {
-  const [pct, setPct] = useState(50);
+  const [pct, setPct] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
+  const autoPlay = useRef(true);
+  const rafId = useRef<number>(0);
 
   useEffect(() => {
     injectStyles();
+  }, []);
+
+  // Auto-advance the slider
+  useEffect(() => {
+    let lastTime = 0;
+    const speed = 3; // percent per second
+
+    const tick = (time: number) => {
+      if (!autoPlay.current) {
+        rafId.current = requestAnimationFrame(tick);
+        lastTime = time;
+        return;
+      }
+      if (lastTime === 0) lastTime = time;
+      const delta = (time - lastTime) / 1000;
+      lastTime = time;
+
+      setPct((prev) => {
+        const next = prev + speed * delta;
+        if (next >= 100) {
+          // Pause at the end, then restart
+          autoPlay.current = false;
+          setTimeout(() => {
+            setPct(0);
+            autoPlay.current = true;
+          }, 2000);
+          return 100;
+        }
+        return next;
+      });
+
+      rafId.current = requestAnimationFrame(tick);
+    };
+
+    rafId.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId.current);
   }, []);
 
   const updateFromClient = useCallback((clientX: number) => {
@@ -78,6 +116,7 @@ export default function TimelineScrubber() {
   const onPointerDown = useCallback(
     (e: React.PointerEvent) => {
       dragging.current = true;
+      autoPlay.current = false;
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
       updateFromClient(e.clientX);
     },
@@ -94,6 +133,12 @@ export default function TimelineScrubber() {
 
   const onPointerUp = useCallback(() => {
     dragging.current = false;
+    // Resume auto-play after 3 seconds of inactivity
+    setTimeout(() => {
+      if (!dragging.current) {
+        autoPlay.current = true;
+      }
+    }, 3000);
   }, []);
 
   const activeIdx = getActivePhase(pct);
