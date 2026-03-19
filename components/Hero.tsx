@@ -10,7 +10,7 @@ export default function Hero() {
           <span className={styles.accent}>That&rsquo;s subject to change.</span>
         </h1>
         <div className={styles.cta}>
-          <Button href="/get-started" variant="ghost">
+          <Button href="/waitlist" variant="ghost">
             Get Started
           </Button>
         </div>

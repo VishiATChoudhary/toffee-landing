@@ -10,16 +10,10 @@
 }
 
 .nav.scrolled {
-  top: 12px;
-  left: 24px;
-  right: 24px;
-  max-width: var(--content-max-width);
-  margin: 0 auto;
   background: rgba(30, 30, 60, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
@@ -31,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .nav.scrolled .inner {
@@ -42,6 +37,21 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-white);
+}
+
+.centerLink {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-white);
+  opacity: 0.9;
+  transition: opacity 0.25s ease;
+}
+
+.centerLink:hover {
+  opacity: 1;
 }
 
 .actions {

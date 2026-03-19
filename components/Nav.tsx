@@ -22,14 +22,11 @@ export default function Nav() {
         <a href="/" className={styles.wordmark}>
           Toffee
         </a>
+        <a href="/blog" className={styles.centerLink}>
+          Blog
+        </a>
         <div className={styles.actions}>
-          <Button href="/blog" variant="text" active={pathname.startsWith("/blog")}>
-            Blog
-          </Button>
-          <Button href="/login" variant="text">
-            Log in
-          </Button>
-          <Button href="/get-started" variant="ghost">
+          <Button href="/waitlist" variant="ghost">
             Get Started
           </Button>
         </div>
