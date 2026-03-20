@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
-import BlogClouds from "@/components/blog/BlogClouds";
+import Clouds from "@/components/Clouds";
 import Nav from "@/components/Nav";
+import { usePageTransition } from "@/components/PageTransition";
 import styles from "./page.module.css";
 
 const posts = [
+  {
+    slug: "future-of-retail-at-wharton",
+    title: "The Future of Retail Will Be Won in the Infrastructure Layer",
+    description:
+      "At Wharton, retail operators and AI infrastructure builders converged on the same conclusion: the next retail winners will pair taste with systems.",
+    date: "2026-03-20",
+  },
   {
     slug: "the-internet-is-getting-a-second-mode",
     title: "The Internet Is Getting a Second Mode",
@@ -17,6 +24,8 @@ const posts = [
 ];
 
 export default function BlogIndex() {
+  const navigate = usePageTransition();
+
   useEffect(() => {
     const els = document.querySelectorAll(".animate-on-scroll");
     const observer = new IntersectionObserver(
@@ -36,15 +45,19 @@ export default function BlogIndex() {
 
   return (
     <div className={styles.gradientBg}>
-      <BlogClouds />
+      <Clouds />
       <Nav />
       <main className={styles.main}>
         <h1 className={`${styles.heading} animate-on-scroll`}>Blog</h1>
         <div className={styles.grid}>
           {posts.map((post, i) => (
-            <Link
+            <a
               key={post.slug}
               href={`/blog/${post.slug}`}
+              onClick={(event) => {
+                event.preventDefault();
+                navigate(`/blog/${post.slug}`);
+              }}
               className={`${styles.card} animate-on-scroll`}
               style={{ transitionDelay: `${i * 0.1}s` }}
             >
@@ -58,7 +71,7 @@ export default function BlogIndex() {
               <h2 className={styles.cardTitle}>{post.title}</h2>
               <p className={styles.cardDescription}>{post.description}</p>
               <span className={styles.readMore}>Read &rarr;</span>
-            </Link>
+            </a>
           ))}
         </div>
       </main>

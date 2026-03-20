@@ -1,13 +1,14 @@
 /* ── Gradient background ── */
 .gradientBg {
   min-height: 100vh;
-  background: linear-gradient(180deg, #4671B3 0%, #D65EAA 100%);
-  background-attachment: fixed;
+  position: relative;
   padding: calc(var(--nav-height) + 24px) 24px 96px;
 }
 
 /* ── Content grid ── */
 .wrapper {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   max-width: 720px;
@@ -75,6 +76,7 @@
   font-size: 1.125rem;
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.92);
+  text-align: justify;
 }
 
 .content h2 {
@@ -82,7 +84,7 @@
   color: var(--color-white);
   margin-top: 48px;
   margin-bottom: 16px;
-  font-weight: 400;
+  font-weight: 700;
   scroll-margin-top: calc(var(--nav-height) + 24px);
 }
 
@@ -91,7 +93,7 @@
   color: var(--color-light-lavender);
   margin-top: 32px;
   margin-bottom: 12px;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .content p {

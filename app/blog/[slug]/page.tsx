@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
 import { blogComponents } from "@/components/blog/mdx-components";
 import TableOfContents from "@/components/blog/TableOfContents";
+import Clouds from "@/components/Clouds";
 import Nav from "@/components/Nav";
 import styles from "./page.module.css";
 
@@ -38,6 +39,7 @@ export default async function BlogPost({ params }: Props) {
 
   return (
     <div className={styles.gradientBg}>
+      <Clouds />
       <Nav />
       <div className={styles.wrapper}>
         <article className={styles.article}>

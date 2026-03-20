@@ -1,11 +1,11 @@
 "use client";
 
-import { usePageTransition } from "./PageTransition";
+import { useWaitlistModal } from "./WaitlistModal";
 import styles from "./Hero.module.css";
 import Button from "./ui/Button";
 
 export default function Hero() {
-  const navigate = usePageTransition();
+  const { open } = useWaitlistModal();
 
   return (
     <section className={styles.hero}>
@@ -15,7 +15,7 @@ export default function Hero() {
           <span className={styles.accent}>That&rsquo;s subject to change.</span>
         </h1>
         <div className={styles.cta}>
-          <Button href="/waitlist" variant="ghost" onClick={() => navigate("/waitlist")}>
+          <Button href="/waitlist" variant="ghost" onClick={open}>
             Get Started
           </Button>
         </div>

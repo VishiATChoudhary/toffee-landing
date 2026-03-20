@@ -9,8 +9,8 @@ const phases = [
     years: "1990s–2010s",
     startPct: 0,
     endPct: 33.33,
-    color: "rgba(255, 255, 255, 0.9)",
-    accent: "rgba(255, 255, 255, 0.6)",
+    color: "#8B5FBF",
+    accent: "#8B5FBF",
   },
   {
     id: 2,
@@ -18,8 +18,8 @@ const phases = [
     years: "2024–2026",
     startPct: 33.33,
     endPct: 66.66,
-    color: "#C8B8E8",
-    accent: "rgba(200, 184, 232, 0.6)",
+    color: "#8B5FBF",
+    accent: "#8B5FBF",
   },
   {
     id: 3,
@@ -27,8 +27,8 @@ const phases = [
     years: "2027+",
     startPct: 66.66,
     endPct: 100,
-    color: "#93c5fd",
-    accent: "rgba(147, 197, 253, 0.6)",
+    color: "#8B5FBF",
+    accent: "#8B5FBF",
   },
 ] as const;
 
@@ -130,10 +130,10 @@ export default function TimelineScrubber() {
     <div
       style={{
         margin: "2rem 0",
-        background: "rgba(255, 255, 255, 0.08)",
-        border: "1px solid rgba(255, 255, 255, 0.15)",
+        background: "#F8F4FB",
         borderRadius: 16,
         padding: "28px 24px 20px",
+        boxShadow: "0 2px 20px rgba(61, 31, 107, 0.08)",
         userSelect: "none",
         WebkitUserSelect: "none",
       }}
@@ -148,10 +148,10 @@ export default function TimelineScrubber() {
             letterSpacing: "0.08em",
             textTransform: "uppercase",
             color: phase.color,
-            background: "rgba(255, 255, 255, 0.1)",
+            background: "#F4F0FA",
             padding: "4px 16px",
             borderRadius: 999,
-            border: `1px solid ${phase.accent}`,
+            border: "1px solid #E2D6F3",
           }}
         >
           {phase.label}
@@ -159,7 +159,7 @@ export default function TimelineScrubber() {
         <div
           style={{
             fontSize: 13,
-            color: "rgba(255, 255, 255, 0.7)",
+            color: "#5A3A7E",
             marginTop: 6,
           }}
         >
@@ -184,12 +184,12 @@ export default function TimelineScrubber() {
               borderRadius: 10,
               background:
                 activeIdx === i
-                  ? "rgba(255, 255, 255, 0.12)"
-                  : "rgba(255, 255, 255, 0.04)",
+                  ? "#EDE9F5"
+                  : "#FAFAFE",
               border:
                 activeIdx === i
-                  ? `1px solid ${p.accent}`
-                  : "1px solid rgba(255, 255, 255, 0.08)",
+                  ? "1px solid #E2D6F3"
+                  : "1px solid #F0ECF7",
               transition: "all 0.3s ease",
               textAlign: "center",
             }}
@@ -200,8 +200,7 @@ export default function TimelineScrubber() {
                 fontWeight: 700,
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
-                color:
-                  activeIdx === i ? p.color : "rgba(255, 255, 255, 0.6)",
+                color: activeIdx === i ? p.color : "#8B7AA9",
                 marginBottom: 4,
                 transition: "color 0.3s ease",
               }}
@@ -212,10 +211,7 @@ export default function TimelineScrubber() {
               style={{
                 fontSize: 13,
                 fontWeight: activeIdx === i ? 600 : 400,
-                color:
-                  activeIdx === i
-                    ? "rgba(255, 255, 255, 0.95)"
-                    : "rgba(255, 255, 255, 0.65)",
+                color: activeIdx === i ? "#3D1F6B" : "#5A3A7E",
                 lineHeight: 1.3,
                 transition: "all 0.3s ease",
               }}
@@ -225,10 +221,7 @@ export default function TimelineScrubber() {
             <div
               style={{
                 fontSize: 11,
-                color:
-                  activeIdx === i
-                    ? "rgba(255, 255, 255, 0.6)"
-                    : "rgba(255, 255, 255, 0.55)",
+                color: activeIdx === i ? "#7B689B" : "#9989B5",
                 marginTop: 2,
                 transition: "color 0.3s ease",
               }}
@@ -270,7 +263,7 @@ export default function TimelineScrubber() {
               key={p.id}
               style={{
                 flex: 1,
-                background: "rgba(255, 255, 255, 0.15)",
+                background: "#EDE9F5",
               }}
             />
           ))}
@@ -300,7 +293,7 @@ export default function TimelineScrubber() {
               top: 14,
               width: 2,
               height: 14,
-              background: "rgba(255, 255, 255, 0.3)",
+              background: "#D8CBEA",
               borderRadius: 1,
               transform: "translateX(-1px)",
             }}
@@ -324,7 +317,7 @@ export default function TimelineScrubber() {
             style={{
               fontSize: 8,
               fontWeight: 800,
-              color: "#fbbf24",
+              color: "#8B5FBF",
               letterSpacing: "0.06em",
               whiteSpace: "nowrap",
               animation: "ts-pulse-text 2s ease-in-out infinite",
@@ -337,7 +330,7 @@ export default function TimelineScrubber() {
               width: 7,
               height: 7,
               borderRadius: "50%",
-              background: "#fbbf24",
+              background: "#8B5FBF",
               marginTop: 2,
               animation: "ts-pulse 2s ease-in-out infinite",
             }}
@@ -353,11 +346,9 @@ export default function TimelineScrubber() {
             width: 22,
             height: 22,
             borderRadius: "50%",
-            background: "rgba(255, 255, 255, 0.15)",
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
+            background: "#FFFFFF",
             border: `2px solid ${phase.color}`,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+            boxShadow: "0 2px 8px rgba(61, 31, 107, 0.14)",
             transform: "translateX(-50%)",
             transition: dragging.current
               ? "none"
@@ -376,7 +367,7 @@ export default function TimelineScrubber() {
             display: "flex",
             justifyContent: "space-between",
             fontSize: 10,
-            color: "rgba(255, 255, 255, 0.65)",
+            color: "#7B689B",
             fontWeight: 500,
             padding: "0 2px",
           }}
