@@ -47,25 +47,30 @@ Run the CREATE TABLE statement via the Vercel dashboard SQL editor or a seed scr
 ```
 
 **Flow:**
-1. Parse and validate email format (regex + type check)
-2. Insert into `waitlist` table
-3. If unique violation (duplicate) → return 200 with "already signed up" message
-4. Send confirmation email via Resend
-5. Return 200 with success message
+1. Rate limit by IP (simple in-memory map, 5 requests per minute per IP)
+2. Parse JSON body; reject malformed requests
+3. Validate email: must contain `@` with a dot after it, max 254 characters (RFC 5321), then lowercase before insert
+4. Insert into `waitlist` table
+5. If unique violation (duplicate) → return 200 with "already signed up" message
+6. Send confirmation email via Resend
+7. Return 200 with success message
 
 **Responses:**
-- `200 { status: "success", message: "You're on the list!" }` — new signup
-- `200 { status: "already_signed_up", message: "You're already on the list!" }` — duplicate
+- `200 { status: "success" }` — new signup
+- `200 { status: "already_signed_up" }` — duplicate
 - `400 { status: "error", message: "Invalid email address" }` — bad input
+- `429 { status: "error", message: "Too many requests" }` — rate limited
 - `500 { status: "error", message: "Something went wrong. Please try again." }` — server error
 
-**No authentication required.** This is a public endpoint. Rate limiting is handled by Vercel's built-in protections.
+**No authentication required.** Public endpoint. Rate limited by IP to prevent abuse (DB filling, Resend quota exhaustion, email bombing).
+
+**UI messages stay hardcoded in the component.** The API returns a `status` field; the form maps status to display message. This keeps copy in the UI layer.
 
 ## Confirmation Email
 
 Sent via Resend SDK after successful DB insert.
 
-**From:** `onboarding@resend.dev` (configurable via `EMAIL_FROM` env var)
+**From:** `onboarding@resend.dev` (dev/testing only — configure a custom domain in Resend before going live, then set `EMAIL_FROM` env var)
 **Subject:** You're on the Toffee waitlist!
 **Body:** Plain text or simple HTML:
 
@@ -110,9 +115,11 @@ New packages to install:
 
 | File | Change |
 |---|---|
-| `app/api/waitlist/route.ts` | New — API route |
+| `app/api/waitlist/route.ts` | New — API route with rate limiting |
 | `app/waitlist/page.tsx` | Modified — real form submission |
 | `package.json` | Modified — new dependencies |
+| `.env.example` | New — documents required env vars (no secrets) |
+| `scripts/seed.sql` | New — version-controlled schema |
 
 ## Out of Scope
 
@@ -120,4 +127,4 @@ New packages to install:
 - Referral mechanics
 - Unsubscribe flow
 - Custom email templates
-- Rate limiting beyond Vercel defaults
+- CAPTCHA (IP rate limiting is sufficient for a pre-launch waitlist)
