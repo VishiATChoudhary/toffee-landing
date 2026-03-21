@@ -7,12 +7,33 @@ import styles from "./page.module.css";
 
 export default function WaitlistPage() {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "already_signed_up" | "error"
+  >("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus(data.status === "already_signed_up" ? "already_signed_up" : "success");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
+
+  const submitted = status === "success" || status === "already_signed_up";
 
   return (
     <div className={styles.wrapper}>
@@ -22,7 +43,11 @@ export default function WaitlistPage() {
         <div className={styles.card}>
           {submitted ? (
             <>
-              <h1 className={styles.heading}>You&rsquo;re on the list</h1>
+              <h1 className={styles.heading}>
+                {status === "already_signed_up"
+                  ? "You\u2019re already on the list"
+                  : "You\u2019re on the list"}
+              </h1>
               <p className={styles.description}>
                 We&rsquo;ll be in touch when it&rsquo;s your turn.
               </p>
@@ -43,9 +68,18 @@ export default function WaitlistPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   className={styles.input}
                 />
-                <button type="submit" className={styles.button}>
-                  Join Waitlist
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={status === "loading"}
+                >
+                  {status === "loading" ? "Joining..." : "Join Waitlist"}
                 </button>
+                {status === "error" && (
+                  <p className={styles.error}>
+                    Something went wrong. Please try again.
+                  </p>
+                )}
               </form>
             </>
           )}
