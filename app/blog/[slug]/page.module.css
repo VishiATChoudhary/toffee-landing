@@ -57,6 +57,23 @@
   margin-bottom: 12px;
 }
 
+.authorLine {
+  font-size: 0.8rem;
+  color: var(--color-muted-grey);
+  margin-top: 12px;
+}
+
+.authorLink {
+  color: var(--color-light-lavender);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.authorLink:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+}
+
 .title {
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.15;

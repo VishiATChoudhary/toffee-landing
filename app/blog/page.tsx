@@ -4,22 +4,16 @@ import { useEffect } from "react";
 import Clouds from "@/components/Clouds";
 import Nav from "@/components/Nav";
 import { usePageTransition } from "@/components/PageTransition";
+import PageFooter from "@/components/PageFooter";
 import styles from "./page.module.css";
 
 const posts = [
   {
-    slug: "future-of-retail-at-wharton",
-    title: "The Future of Retail Will Be Won in the Infrastructure Layer",
+    slug: "why-geo-is-not-enough",
+    title: "Why GEO Is Not Enough",
     description:
-      "At Wharton, retail operators and AI infrastructure builders converged on the same conclusion: the next retail winners will pair taste with systems.",
+      "Most companies think GEO solves agentic commerce. It doesn't. Here's what the full stack actually looks like.",
     date: "2026-03-20",
-  },
-  {
-    slug: "the-internet-is-getting-a-second-mode",
-    title: "The Internet Is Getting a Second Mode",
-    description:
-      "The companies that optimize for AI agents first will dominate the next era of commerce. Most businesses don't even know there's a race.",
-    date: "2026-03-18",
   },
 ];
 
@@ -75,6 +69,7 @@ export default function BlogIndex() {
           ))}
         </div>
       </main>
+      <PageFooter />
     </div>
   );
 }

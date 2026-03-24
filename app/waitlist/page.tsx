@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Nav from "@/components/Nav";
 import Clouds from "@/components/Clouds";
+import PageFooter from "@/components/PageFooter";
 import styles from "./page.module.css";
 
 export default function WaitlistPage() {
@@ -51,6 +52,7 @@ export default function WaitlistPage() {
           )}
         </div>
       </main>
+      <PageFooter />
     </div>
   );
 }
