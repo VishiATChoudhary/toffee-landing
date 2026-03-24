@@ -6,7 +6,7 @@ import Clouds from "@/components/Clouds";
 import Hero from "@/components/Hero";
 import AiAgents from "@/components/AiAgents";
 import EmbraceChange from "@/components/EmbraceChange";
-import Footer from "@/components/Footer";
+import PageFooter from "@/components/PageFooter";
 
 export default function Home() {
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Home() {
         <Hero />
         <AiAgents />
         <EmbraceChange />
-        <Footer />
+        <PageFooter />
       </main>
     </div>
   );

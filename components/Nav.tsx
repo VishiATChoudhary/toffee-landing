@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { usePageTransition } from "./PageTransition";
+import { useWaitlistModal } from "./WaitlistModal";
 import styles from "./Nav.module.css";
 import Button from "./ui/Button";
 
 export default function Nav() {
-  const pathname = usePathname();
   const navigate = usePageTransition();
+  const { open } = useWaitlistModal();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
+    <nav className={`${styles.nav} ${styles.scrolled}`}>
       <div className={styles.inner}>
         <a href="/" onClick={(e) => { e.preventDefault(); navigate("/"); }} className={styles.wordmark}>
           Toffee
@@ -28,7 +28,7 @@ export default function Nav() {
           Blog
         </a>
         <div className={styles.actions}>
-          <Button href="/waitlist" variant="ghost" onClick={() => navigate("/waitlist")}>
+          <Button href="/waitlist" variant="ghost" onClick={open}>
             Get Started
           </Button>
         </div>

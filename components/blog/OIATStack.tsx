@@ -16,28 +16,28 @@ const layers: Layer[] = [
     name: "Observability",
     description: "See which agents visit and what they do",
     color: "#EDE9F5",
-    borderColor: "#5A3A7E",
+    borderColor: "#8B5FBF",
   },
   {
     id: "integration",
     name: "Integration",
     description: "Structured protocols for agent-server communication",
-    color: "#F0ECF7",
+    color: "#EDE9F5",
     borderColor: "#8B5FBF",
   },
   {
     id: "analytics",
     name: "Analytics",
     description: "New metrics for agent conversion funnels",
-    color: "#F4F0FA",
-    borderColor: "#3B82F6",
+    color: "#EDE9F5",
+    borderColor: "#8B5FBF",
   },
   {
     id: "trust",
     name: "Trust & Identity",
     description: "Distinguish legitimate agents from malicious bots",
-    color: "#F7F4FC",
-    borderColor: "#3D1F6B",
+    color: "#EDE9F5",
+    borderColor: "#8B5FBF",
   },
 ];
 
@@ -54,7 +54,7 @@ function ObservabilityIcon() {
             width: 6,
             height: 6,
             borderRadius: "50%",
-            backgroundColor: "#5A3A7E",
+            backgroundColor: "#8B5FBF",
             animation: `oiatDotFlow 1.2s ease-in-out ${i * 0.25}s infinite`,
           }}
         />
@@ -64,7 +64,7 @@ function ObservabilityIcon() {
         height="18"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="#5A3A7E"
+        stroke="#8B5FBF"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -150,7 +150,7 @@ function AnalyticsIcon() {
             display: "inline-block",
             width: 6,
             borderRadius: 2,
-            backgroundColor: "#3B82F6",
+            backgroundColor: "#8B5FBF",
             animation: `oiatBarGrow 1.4s ease-out ${i * 0.15}s infinite`,
             transformOrigin: "bottom",
             height: h,
@@ -169,7 +169,7 @@ function TrustIcon() {
         height="28"
         viewBox="0 0 26 28"
         fill="none"
-        stroke="#3D1F6B"
+        stroke="#8B5FBF"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -177,7 +177,7 @@ function TrustIcon() {
         <path d="M13 2L3 7v6c0 6.5 4.3 12.2 10 14 5.7-1.8 10-7.5 10-14V7L13 2z" />
         <polyline
           points="8,14 12,18 18,10"
-          stroke="#3D1F6B"
+          stroke="#8B5FBF"
           strokeWidth="2.5"
           fill="none"
           style={{
@@ -266,8 +266,7 @@ export default function OIATStack() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  // Render bottom-to-top: Trust (3) -> Analytics (2) -> Integration (1) -> Observability (0)
-  const orderedIndices = [3, 2, 1, 0];
+  const orderedIndices = [0, 1, 2, 3];
 
   return (
     <>
@@ -278,7 +277,7 @@ export default function OIATStack() {
           maxWidth: 600,
           margin: "2rem auto",
           padding: "1.5rem",
-          background: "#fff",
+          background: "#F8F4FB",
           borderRadius: 16,
           boxShadow: "0 2px 20px rgba(61, 31, 107, 0.08)",
           display: "flex",
@@ -320,7 +319,9 @@ export default function OIATStack() {
                 padding: "14px 20px",
                 borderRadius: 12,
                 borderLeft: `4px solid ${isHovered ? layer.borderColor : "transparent"}`,
-                background: isHovered ? layer.color : "#FAFAFE",
+                background: isHovered
+                  ? layer.color
+                  : "#FAFAFE",
                 boxShadow: isHovered
                   ? "0 4px 16px rgba(61, 31, 107, 0.1)"
                   : "0 1px 4px rgba(61, 31, 107, 0.04)",

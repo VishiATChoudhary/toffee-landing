@@ -6,15 +6,24 @@
   z-index: 100;
   height: var(--nav-height);
   background: transparent;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    -webkit-backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav.scrolled {
-  background: rgba(30, 30, 60, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    180deg,
+    rgba(58, 42, 93, 0.34) 0%,
+    rgba(58, 42, 93, 0.22) 58%,
+    rgba(58, 42, 93, 0.08) 82%,
+    rgba(58, 42, 93, 0) 100%
+  );
+  backdrop-filter: blur(52px) saturate(1.08);
+  -webkit-backdrop-filter: blur(52px) saturate(1.08);
+  box-shadow: none;
 }
 
 .inner {
@@ -28,15 +37,12 @@
   position: relative;
 }
 
-.nav.scrolled .inner {
-  padding: 0 28px;
-}
-
 .wordmark {
   font-size: 26px;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-white);
+  text-shadow: 0 2px 12px rgba(10, 6, 24, 0.28);
 }
 
 .centerLink {
@@ -47,6 +53,7 @@
   font-weight: 500;
   color: var(--color-white);
   opacity: 0.9;
+  text-shadow: 0 2px 12px rgba(10, 6, 24, 0.28);
   transition: opacity 0.25s ease;
 }
 

@@ -1,22 +1,25 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
-import BlogClouds from "@/components/blog/BlogClouds";
+import Clouds from "@/components/Clouds";
 import Nav from "@/components/Nav";
+import { usePageTransition } from "@/components/PageTransition";
+import PageFooter from "@/components/PageFooter";
 import styles from "./page.module.css";
 
 const posts = [
   {
-    slug: "the-internet-is-getting-a-second-mode",
-    title: "The Internet Is Getting a Second Mode",
+    slug: "why-geo-is-not-enough",
+    title: "Why GEO Is Not Enough",
     description:
-      "The companies that optimize for AI agents first will dominate the next era of commerce. Most businesses don't even know there's a race.",
-    date: "2026-03-18",
+      "Most companies think GEO solves agentic commerce. It doesn't. Here's what the full stack actually looks like.",
+    date: "2026-03-20",
   },
 ];
 
 export default function BlogIndex() {
+  const navigate = usePageTransition();
+
   useEffect(() => {
     const els = document.querySelectorAll(".animate-on-scroll");
     const observer = new IntersectionObserver(
@@ -36,15 +39,19 @@ export default function BlogIndex() {
 
   return (
     <div className={styles.gradientBg}>
-      <BlogClouds />
+      <Clouds />
       <Nav />
       <main className={styles.main}>
         <h1 className={`${styles.heading} animate-on-scroll`}>Blog</h1>
         <div className={styles.grid}>
           {posts.map((post, i) => (
-            <Link
+            <a
               key={post.slug}
               href={`/blog/${post.slug}`}
+              onClick={(event) => {
+                event.preventDefault();
+                navigate(`/blog/${post.slug}`);
+              }}
               className={`${styles.card} animate-on-scroll`}
               style={{ transitionDelay: `${i * 0.1}s` }}
             >
@@ -58,10 +65,11 @@ export default function BlogIndex() {
               <h2 className={styles.cardTitle}>{post.title}</h2>
               <p className={styles.cardDescription}>{post.description}</p>
               <span className={styles.readMore}>Read &rarr;</span>
-            </Link>
+            </a>
           ))}
         </div>
       </main>
+      <PageFooter />
     </div>
   );
 }

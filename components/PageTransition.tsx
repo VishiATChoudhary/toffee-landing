@@ -15,7 +15,6 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const [opacity, setOpacity] = useState(0);
   const transitioning = useRef(false);
 
-  // Fade in on mount / route change
   useEffect(() => {
     transitioning.current = false;
     const id = requestAnimationFrame(() => setOpacity(1));
