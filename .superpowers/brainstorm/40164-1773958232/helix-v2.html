@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helix V2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'ABeeZee', sans-serif;
+    background: linear-gradient(180deg, #4671B3 0%, #D65EAA 100%);
+    background-attachment: fixed;
+    min-height: 300vh;
+    color: white;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  .spacer { height: 50vh; }
+
+  .section {
+    padding: 100px 24px 200px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .heading {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: clamp(64px, 8vw, 120px);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 6vw, 80px);
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(24px, 3vw, 48px);
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .step.visible { opacity: 1; transform: translateY(0); }
+
+  .number {
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 1;
+    color: #C8B8E8;
+    opacity: 0.4;
+    flex-shrink: 0;
+    min-width: 80px;
+  }
+
+  .step-content { padding-top: 8px; }
+  .step-title { font-size: clamp(22px, 2.5vw, 32px); font-weight: 400; margin-bottom: 12px; }
+  .step-desc { font-size: 16px; line-height: 1.7; color: #C8C8C8; max-width: 520px; }
+
+  /* ---- HELIX ---- */
+  .helix-wrap {
+    position: sticky;
+    top: 10vh;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  canvas#helix {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div class="spacer"></div>
+
+<section class="section">
+  <h2 class="heading">Embrace change,<br>increase revenue</h2>
+  <div class="layout">
+    <div class="steps">
+      <div class="step" data-step="1">
+        <span class="number">01</span>
+        <div class="step-content">
+          <h3 class="step-title">Analyze</h3>
+          <p class="step-desc">We audit your storefront through the eyes of AI agents — evaluating product data structure, metadata quality, and machine readability.</p>
+        </div>
+      </div>
+      <div class="step" data-step="2">
+        <span class="number">02</span>
+        <div class="step-content">
+          <h3 class="step-title">Learn</h3>
+          <p class="step-desc">Our platform identifies exactly what AI shopping agents look for and where your competitors are already optimized.</p>
+        </div>
+      </div>
+      <div class="step" data-step="3">
+        <span class="number">03</span>
+        <div class="step-content">
+          <h3 class="step-title">Optimize</h3>
+          <p class="step-desc">Toffee applies targeted changes that make your products discoverable, comparable, and purchasable by AI agents.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="helix-wrap">
+      <canvas id="helix"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<script>
+const canvas = document.getElementById('helix');
+const ctx = canvas.getContext('2d');
+
+// Hi-DPI
+function resize() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  canvas.style.width = rect.width + 'px';
+  canvas.style.height = rect.height + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resize();
+window.addEventListener('resize', resize);
+
+// --- Config ---
+const NUM_RUNGS = 28;
+const HELIX_RADIUS = 80;
+const VERTICAL_SPREAD = 520;
+const TWIST_SPEED = 0.0008;
+const RUNG_BASE_OPACITY = 0.06;
+
+// Phase tracking
+let currentPhase = 0;
+let phaseProgress = [0, 0, 0]; // 0-1 smooth transition per phase
+
+// Intersection observer for steps
+const steps = document.querySelectorAll('.step');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      const s = parseInt(entry.target.dataset.step);
+      if (s > currentPhase) currentPhase = s;
+    }
+  });
+}, { threshold: 0.25 });
+steps.forEach(s => observer.observe(s));
+
+// Floating particles
+const particles = [];
+for (let i = 0; i < 40; i++) {
+  particles.push({
+    x: Math.random() * 300 - 50,
+    y: Math.random() * 600 - 40,
+    r: Math.random() * 2.5 + 0.5,
+    speed: Math.random() * 0.3 + 0.1,
+    drift: Math.random() * 0.5 - 0.25,
+    phase: Math.random() * Math.PI * 2,
+    baseOpacity: Math.random() * 0.25 + 0.05,
+  });
+}
+
+// --- Draw ---
+let time = 0;
+
+function draw() {
+  const W = canvas.width / (window.devicePixelRatio || 1);
+  const H = canvas.height / (window.devicePixelRatio || 1);
+  ctx.clearRect(0, 0, W, H);
+
+  const cx = W / 2;
+  const startY = (H - VERTICAL_SPREAD) / 2;
+
+  // Smooth phase transitions
+  for (let i = 0; i < 3; i++) {
+    const target = currentPhase > i ? 1 : 0;
+    phaseProgress[i] += (target - phaseProgress[i]) * 0.02;
+  }
+
+  time += 1;
+  const twist = time * TWIST_SPEED;
+
+  // Collect all rung data for depth sorting
+  const rungData = [];
+
+  for (let i = 0; i < NUM_RUNGS; i++) {
+    const t = i / (NUM_RUNGS - 1); // 0 to 1 along helix
+    const y = startY + t * VERTICAL_SPREAD;
+    const angle = t * Math.PI * 4 + twist; // 2 full twists
+
+    const xL = cx + Math.cos(angle) * HELIX_RADIUS;
+    const xR = cx + Math.cos(angle + Math.PI) * HELIX_RADIUS;
+    const depth = Math.sin(angle); // -1 to 1, for opacity/size
+
+    // Which phase does this rung belong to?
+    let rungPhase;
+    if (t < 0.36) rungPhase = 0;
+    else if (t < 0.68) rungPhase = 1;
+    else rungPhase = 2;
+
+    const progress = phaseProgress[rungPhase];
+
+    rungData.push({ t, y, xL, xR, depth, rungPhase, progress, angle, i });
+  }
+
+  // Draw glow behind everything for phase 3
+  if (phaseProgress[2] > 0.01) {
+    const glowY = startY + 0.8 * VERTICAL_SPREAD;
+    const grad = ctx.createRadialGradient(cx, glowY, 0, cx, glowY, 160);
+    const a = phaseProgress[2] * 0.12;
+    grad.addColorStop(0, `rgba(59,130,246,${a})`);
+    grad.addColorStop(0.5, `rgba(59,130,246,${a * 0.3})`);
+    grad.addColorStop(1, 'rgba(59,130,246,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(cx - 160, glowY - 160, 320, 320);
+  }
+
+  // Draw continuous strands
+  drawStrand(cx, startY, twist, 0);
+  drawStrand(cx, startY, twist, Math.PI);
+
+  // Draw rungs sorted by depth (back to front)
+  rungData.sort((a, b) => a.depth - b.depth);
+
+  for (const r of rungData) {
+    drawRung(r);
+  }
+
+  // Floating particles
+  drawParticles(W, H, cx);
+
+  requestAnimationFrame(draw);
+}
+
+function drawStrand(cx, startY, twist, offset) {
+  ctx.beginPath();
+  for (let i = 0; i <= 200; i++) {
+    const t = i / 200;
+    const y = startY + t * VERTICAL_SPREAD;
+    const angle = t * Math.PI * 4 + twist + offset;
+    const x = cx + Math.cos(angle) * HELIX_RADIUS;
+    const depth = (Math.sin(angle) + 1) / 2; // 0-1
+
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  // Gradient along strand
+  const grad = ctx.createLinearGradient(0, startY, 0, startY + VERTICAL_SPREAD);
+
+  // Phase 1: dim white
+  const p1 = phaseProgress[0];
+  const topAlpha = 0.08 + p1 * 0.12;
+  grad.addColorStop(0, `rgba(200,184,232,${topAlpha})`);
+
+  // Phase 2: brighter middle
+  const p2 = phaseProgress[1];
+  const midAlpha = 0.08 + p2 * 0.2;
+  grad.addColorStop(0.5, `rgba(200,184,232,${midAlpha})`);
+
+  // Phase 3: blue glow at bottom
+  const p3 = phaseProgress[2];
+  const botAlpha = 0.08 + p3 * 0.45;
+  grad.addColorStop(0.75, `rgba(130,160,246,${botAlpha})`);
+  grad.addColorStop(1, `rgba(59,130,246,${botAlpha})`);
+
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 1.5 + phaseProgress[2] * 0.8;
+  ctx.stroke();
+}
+
+function drawRung(r) {
+  const { y, xL, xR, depth, rungPhase, progress, t } = r;
+  const depthFactor = (depth + 1) / 2; // 0 to 1
+
+  // Base properties based on phase
+  let opacity, width, color, nodeSize;
+
+  if (rungPhase === 0) {
+    // Phase 1: broken, flickering
+    const flicker = Math.sin(time * 0.03 + r.i * 2) * 0.3 + 0.7;
+    opacity = (RUNG_BASE_OPACITY + progress * 0.12) * depthFactor * flicker;
+    width = 0.5 + progress * 0.5;
+    color = `rgba(255,255,255,${opacity})`;
+    nodeSize = 0;
+
+    // Draw dashed
+    ctx.beginPath();
+    ctx.setLineDash([3 + Math.random() * 2, 4 + (1 - progress) * 6]);
+    ctx.moveTo(xL, y);
+    ctx.lineTo(xR, y);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+  } else if (rungPhase === 1) {
+    // Phase 2: forming, connecting
+    opacity = (0.05 + progress * 0.3) * depthFactor;
+    width = 1 + progress * 1;
+    const lerp = progress;
+    const r2 = Math.round(200 + lerp * 0);
+    const g = Math.round(184 + lerp * 0);
+    const b = Math.round(232 + lerp * 0);
+    color = `rgba(${r2},${g},${b},${opacity})`;
+    nodeSize = progress * 3.5 * depthFactor;
+
+    // Rungs grow from center outward
+    const spread = progress;
+    const midX = (xL + xR) / 2;
+    const drawXL = midX + (xL - midX) * spread;
+    const drawXR = midX + (xR - midX) * spread;
+
+    ctx.beginPath();
+    ctx.moveTo(drawXL, y);
+    ctx.lineTo(drawXR, y);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.stroke();
+
+    // Nodes at ends
+    if (nodeSize > 0.5) {
+      [drawXL, drawXR].forEach(nx => {
+        ctx.beginPath();
+        ctx.arc(nx, y, nodeSize, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,184,232,${opacity * 1.5})`;
+        ctx.fill();
+      });
+    }
+
+  } else {
+    // Phase 3: complete, glowing blue
+    const pulse = Math.sin(time * 0.02 + r.i * 1.5) * 0.15 + 0.85;
+    opacity = (0.05 + progress * 0.55) * depthFactor * pulse;
+    width = 1.5 + progress * 1.5;
+    nodeSize = progress * 4.5 * depthFactor * pulse;
+
+    // Blue glow color
+    color = `rgba(59,130,246,${opacity})`;
+
+    ctx.beginPath();
+    ctx.moveTo(xL, y);
+    ctx.lineTo(xR, y);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.stroke();
+
+    // Glowing nodes
+    if (nodeSize > 0.5) {
+      [xL, xR].forEach(nx => {
+        // Outer glow
+        const glowGrad = ctx.createRadialGradient(nx, y, 0, nx, y, nodeSize * 3);
+        glowGrad.addColorStop(0, `rgba(59,130,246,${opacity * 0.4})`);
+        glowGrad.addColorStop(1, 'rgba(59,130,246,0)');
+        ctx.beginPath();
+        ctx.arc(nx, y, nodeSize * 3, 0, Math.PI * 2);
+        ctx.fillStyle = glowGrad;
+        ctx.fill();
+
+        // Core node
+        ctx.beginPath();
+        ctx.arc(nx, y, nodeSize, 0, Math.PI * 2);
+        const coreGrad = ctx.createRadialGradient(nx, y, 0, nx, y, nodeSize);
+        coreGrad.addColorStop(0, `rgba(180,200,255,${opacity * 1.2})`);
+        coreGrad.addColorStop(1, `rgba(59,130,246,${opacity * 0.8})`);
+        ctx.fillStyle = coreGrad;
+        ctx.fill();
+      });
+    }
+  }
+}
+
+function drawParticles(W, H, cx) {
+  for (const p of particles) {
+    p.y -= p.speed;
+    p.x += Math.sin(time * 0.005 + p.phase) * p.drift;
+
+    if (p.y < -20) {
+      p.y = H + 20;
+      p.x = Math.random() * W;
+    }
+
+    // Particles get brighter with phases
+    const brighten = phaseProgress[0] * 0.3 + phaseProgress[1] * 0.3 + phaseProgress[2] * 0.4;
+    const alpha = p.baseOpacity * (0.3 + brighten * 0.7);
+
+    // Color shifts to blue in phase 3
+    const blue = phaseProgress[2];
+    const r = Math.round(200 * (1 - blue) + 59 * blue);
+    const g = Math.round(184 * (1 - blue) + 130 * blue);
+    const b = Math.round(232 * (1 - blue) + 246 * blue);
+
+    const wobble = Math.sin(time * 0.01 + p.phase) * 2;
+
+    ctx.beginPath();
+    ctx.arc(p.x + wobble, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+    ctx.fill();
+  }
+}
+
+draw();
+</script>
+</body>
+</html>

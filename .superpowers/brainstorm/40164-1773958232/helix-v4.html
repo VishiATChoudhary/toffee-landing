@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helix V4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'ABeeZee', sans-serif;
+    background: linear-gradient(180deg, #4671B3 0%, #D65EAA 100%);
+    background-attachment: fixed;
+    min-height: 300vh;
+    color: white;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  .spacer { height: 50vh; }
+
+  .section {
+    padding: 100px 24px 200px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .heading {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: clamp(64px, 8vw, 120px);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 6vw, 80px);
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(24px, 3vw, 48px);
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .step.visible { opacity: 1; transform: translateY(0); }
+
+  .number {
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 1;
+    color: #C8B8E8;
+    opacity: 0.4;
+    flex-shrink: 0;
+    min-width: 80px;
+  }
+
+  .step-content { padding-top: 8px; }
+  .step-title { font-size: clamp(22px, 2.5vw, 32px); font-weight: 400; margin-bottom: 12px; }
+  .step-desc { font-size: 16px; line-height: 1.7; color: #C8C8C8; max-width: 520px; }
+
+  /* The helix column matches the steps height, canvas fills it */
+  .helix-wrap {
+    position: relative;
+    /* JS will set the height to match .steps */
+  }
+
+  canvas#helix {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div class="spacer"></div>
+
+<section class="section">
+  <h2 class="heading">Embrace change,<br>increase revenue</h2>
+  <div class="layout">
+    <div class="steps" id="stepsCol">
+      <div class="step" data-step="1">
+        <span class="number">01</span>
+        <div class="step-content">
+          <h3 class="step-title">Analyze</h3>
+          <p class="step-desc">We audit your storefront through the eyes of AI agents — evaluating product data structure, metadata quality, and machine readability.</p>
+        </div>
+      </div>
+      <div class="step" data-step="2">
+        <span class="number">02</span>
+        <div class="step-content">
+          <h3 class="step-title">Learn</h3>
+          <p class="step-desc">Our platform identifies exactly what AI shopping agents look for and where your competitors are already optimized.</p>
+        </div>
+      </div>
+      <div class="step" data-step="3">
+        <span class="number">03</span>
+        <div class="step-content">
+          <h3 class="step-title">Optimize</h3>
+          <p class="step-desc">Toffee applies targeted changes that make your products discoverable, comparable, and purchasable by AI agents.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="helix-wrap" id="helixWrap">
+      <canvas id="helix"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<script>
+const canvas = document.getElementById('helix');
+const ctx = canvas.getContext('2d');
+const stepsCol = document.getElementById('stepsCol');
+const helixWrap = document.getElementById('helixWrap');
+
+let W, H, cx, cy;
+
+function resize() {
+  // Match helix container height to steps column
+  const stepsHeight = stepsCol.offsetHeight;
+  helixWrap.style.height = stepsHeight + 'px';
+
+  const rect = helixWrap.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  canvas.style.width = rect.width + 'px';
+  canvas.style.height = rect.height + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  W = rect.width;
+  H = rect.height;
+  cx = W / 2;
+  cy = H / 2;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const NUM_RUNGS = 32;
+const HELIX_RADIUS = 90;
+const TWIST_SPEED = 0.001;
+
+let currentPhase = 0;
+let phaseProgress = [0, 0, 0];
+
+const steps = document.querySelectorAll('.step');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      const s = parseInt(entry.target.dataset.step);
+      if (s > currentPhase) currentPhase = s;
+    }
+  });
+}, { threshold: 0.25 });
+steps.forEach(s => observer.observe(s));
+
+const particles = [];
+for (let i = 0; i < 50; i++) {
+  particles.push({
+    x: Math.random(),
+    y: Math.random(),
+    r: Math.random() * 2.5 + 0.8,
+    speed: Math.random() * 0.2 + 0.08,
+    drift: Math.random() * 0.4 - 0.2,
+    phase: Math.random() * Math.PI * 2,
+    baseOpacity: Math.random() * 0.3 + 0.1,
+  });
+}
+
+let time = 0;
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Helix spans 80% of height, centered
+  const VERTICAL_SPREAD = H * 0.8;
+  const startY = cy - VERTICAL_SPREAD / 2;
+
+  for (let i = 0; i < 3; i++) {
+    const target = currentPhase > i ? 1 : 0;
+    phaseProgress[i] += (target - phaseProgress[i]) * 0.02;
+  }
+
+  time += 1;
+  const twist = time * TWIST_SPEED;
+
+  // Phase 3 background glow
+  if (phaseProgress[2] > 0.01) {
+    const glowY = startY + 0.82 * VERTICAL_SPREAD;
+    const grad = ctx.createRadialGradient(cx, glowY, 0, cx, glowY, 180);
+    const a = phaseProgress[2] * 0.18;
+    grad.addColorStop(0, `rgba(59,130,246,${a})`);
+    grad.addColorStop(0.4, `rgba(59,130,246,${a * 0.4})`);
+    grad.addColorStop(1, 'rgba(59,130,246,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  drawStrand(startY, VERTICAL_SPREAD, twist, 0);
+  drawStrand(startY, VERTICAL_SPREAD, twist, Math.PI);
+
+  const rungData = [];
+  for (let i = 0; i < NUM_RUNGS; i++) {
+    const t = i / (NUM_RUNGS - 1);
+    const y = startY + t * VERTICAL_SPREAD;
+    const angle = t * Math.PI * 4 + twist;
+    const xL = cx + Math.cos(angle) * HELIX_RADIUS;
+    const xR = cx + Math.cos(angle + Math.PI) * HELIX_RADIUS;
+    const depth = Math.sin(angle);
+
+    let rungPhase;
+    if (t < 0.36) rungPhase = 0;
+    else if (t < 0.68) rungPhase = 1;
+    else rungPhase = 2;
+
+    rungData.push({ t, y, xL, xR, depth, rungPhase, progress: phaseProgress[rungPhase], angle, i });
+  }
+  rungData.sort((a, b) => a.depth - b.depth);
+  for (const r of rungData) drawRung(r);
+
+  drawParticles();
+  requestAnimationFrame(draw);
+}
+
+function drawStrand(startY, spread, twist, offset) {
+  ctx.beginPath();
+  for (let i = 0; i <= 200; i++) {
+    const t = i / 200;
+    const y = startY + t * spread;
+    const angle = t * Math.PI * 4 + twist + offset;
+    const x = cx + Math.cos(angle) * HELIX_RADIUS;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  const grad = ctx.createLinearGradient(0, startY, 0, startY + spread);
+  const p1 = phaseProgress[0], p2 = phaseProgress[1], p3 = phaseProgress[2];
+
+  grad.addColorStop(0, `rgba(220,200,255,${0.15 + p1 * 0.35})`);
+  grad.addColorStop(0.4, `rgba(220,200,255,${0.15 + p2 * 0.4})`);
+  grad.addColorStop(0.7, `rgba(140,170,255,${0.15 + p3 * 0.5})`);
+  grad.addColorStop(1, `rgba(80,140,255,${0.15 + p3 * 0.65})`);
+
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 2 + p3 * 1;
+  ctx.stroke();
+}
+
+function drawRung(r) {
+  const { y, xL, xR, depth, rungPhase, progress } = r;
+  const depthFactor = (depth + 1) / 2;
+
+  if (rungPhase === 0) {
+    const flicker = Math.sin(time * 0.03 + r.i * 2) * 0.2 + 0.8;
+    const opacity = (0.12 + progress * 0.3) * depthFactor * flicker;
+    const width = 0.8 + progress * 0.8;
+
+    ctx.beginPath();
+    ctx.setLineDash([3 + Math.random() * 2, 3 + (1 - progress) * 5]);
+    ctx.moveTo(xL, y);
+    ctx.lineTo(xR, y);
+    ctx.strokeStyle = `rgba(220,200,255,${opacity})`;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+  } else if (rungPhase === 1) {
+    const opacity = (0.1 + progress * 0.45) * depthFactor;
+    const width = 1.2 + progress * 1.2;
+    const nodeSize = progress * 4 * depthFactor;
+
+    const spread = 0.2 + progress * 0.8;
+    const midX = (xL + xR) / 2;
+    const drawXL = midX + (xL - midX) * spread;
+    const drawXR = midX + (xR - midX) * spread;
+
+    ctx.beginPath();
+    ctx.moveTo(drawXL, y);
+    ctx.lineTo(drawXR, y);
+    ctx.strokeStyle = `rgba(210,195,255,${opacity})`;
+    ctx.lineWidth = width;
+    ctx.stroke();
+
+    if (nodeSize > 0.5) {
+      [drawXL, drawXR].forEach(nx => {
+        ctx.beginPath();
+        ctx.arc(nx, y, nodeSize, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(220,205,255,${opacity * 1.8})`;
+        ctx.fill();
+      });
+    }
+
+  } else {
+    const pulse = Math.sin(time * 0.02 + r.i * 1.5) * 0.12 + 0.88;
+    const opacity = (0.1 + progress * 0.7) * depthFactor * pulse;
+    const width = 2 + progress * 1.5;
+    const nodeSize = progress * 5.5 * depthFactor * pulse;
+
+    ctx.beginPath();
+    ctx.moveTo(xL, y);
+    ctx.lineTo(xR, y);
+    ctx.strokeStyle = `rgba(80,140,255,${opacity})`;
+    ctx.lineWidth = width;
+    ctx.stroke();
+
+    if (nodeSize > 0.5) {
+      [xL, xR].forEach(nx => {
+        const glowGrad = ctx.createRadialGradient(nx, y, 0, nx, y, nodeSize * 4);
+        glowGrad.addColorStop(0, `rgba(80,140,255,${opacity * 0.5})`);
+        glowGrad.addColorStop(0.5, `rgba(59,130,246,${opacity * 0.15})`);
+        glowGrad.addColorStop(1, 'rgba(59,130,246,0)');
+        ctx.beginPath();
+        ctx.arc(nx, y, nodeSize * 4, 0, Math.PI * 2);
+        ctx.fillStyle = glowGrad;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(nx, y, nodeSize, 0, Math.PI * 2);
+        const coreGrad = ctx.createRadialGradient(nx, y, 0, nx, y, nodeSize);
+        coreGrad.addColorStop(0, `rgba(220,230,255,${Math.min(opacity * 1.6, 1)})`);
+        coreGrad.addColorStop(0.6, `rgba(120,170,255,${opacity * 1.2})`);
+        coreGrad.addColorStop(1, `rgba(59,130,246,${opacity * 0.6})`);
+        ctx.fillStyle = coreGrad;
+        ctx.fill();
+      });
+    }
+  }
+}
+
+function drawParticles() {
+  for (const p of particles) {
+    p.y -= p.speed / H;
+    p.x += Math.sin(time * 0.005 + p.phase) * p.drift / W;
+    if (p.y < -0.05) { p.y = 1.05; p.x = Math.random(); }
+
+    const px = p.x * W;
+    const py = p.y * H;
+    const brighten = phaseProgress[0] * 0.3 + phaseProgress[1] * 0.3 + phaseProgress[2] * 0.4;
+    const alpha = p.baseOpacity * (0.5 + brighten * 0.5);
+    const blue = phaseProgress[2];
+    const rc = Math.round(220 * (1 - blue) + 80 * blue);
+    const gc = Math.round(200 * (1 - blue) + 140 * blue);
+    const bc = Math.round(255 * (1 - blue) + 255 * blue);
+    const wobble = Math.sin(time * 0.008 + p.phase) * 3;
+
+    ctx.beginPath();
+    ctx.arc(px + wobble, py, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${rc},${gc},${bc},${alpha})`;
+    ctx.fill();
+  }
+}
+
+draw();
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+[  254925ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="the-intern..." loading={null}>
+        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/blog/the-..." tree={[...]} params={{slug:"the-..."}} ...>
+                <SegmentViewNode type="page" pagePath="/repos/tof...">
+                  <SegmentTrieNode>
+                  <BlogPost>
+                    <article className="page-modul...">
+                      <header>
+                      <div className="page-modul...">
+                        <blockquote>
+                        <TrafficSplitVisualizer>
+                        <p>
+                        <p>
+                        <MDXRemote>
+                          <MDXContent>
+                            <BubbleMap>
+                              <div ref={{current:null}} style={{maxWidth:500, ...}}>
+                                <svg viewBox="0 0 500 420" width="100%" style={{...}}>
+                                  <defs>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle>
+                                  <circle
+                                    cx={237.48463999007285}
++                                   cy={202.4161698671625}
+-                                   cy="202.41616986716247"
+                                    r={3.2034736645440325}
+                                    fill="#3B82F6"
+                                    filter="url(#bubble-glow)"
+                                    opacity={0}
+                                    style={{transition:"opacity 0....",animation:"none"}}
+                                  >
+                                  ...
+                                  ...
+                                ...
+                        ...
+                ...
+              ...
+ @ http://localhost:3000/_next/static/chunks/01f16_next_dist_2d01c3f0._.js:3127
+[  450139ms] [WARNING] [HMR] Invalid message: {"isTrusted":true}
+TypeError: Cannot convert undefined or null to object
+    at Object.keys (<anonymous>)
+    at extractModulesFromTurbopackMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:11210:39)
+    at TurbopackHmr.onTurbopackMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:11157:32)
+    at processMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:11589:30)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:10914:52) @ http://localhost:3000/_next/static/chunks/01f16_next_dist_2d01c3f0._.js:2297
+[  956504ms] [WARNING] [HMR] Invalid message: {"isTrusted":true}
+TypeError: Cannot convert undefined or null to object
+    at Object.keys (<anonymous>)
+    at extractModulesFromTurbopackMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:11210:39)
+    at TurbopackHmr.onTurbopackMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:11157:32)
+    at processMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:11589:30)
+    at WebSocket.handleMessage (http://localhost:3000/_next/static/chunks/01f16_next_dist_client_3b1371f0._.js:10914:52) @ http://localhost:3000/_next/static/chunks/01f16_next_dist_2d01c3f0._.js:2297
+[ 1206464ms] [ERROR] ./repos/toffee-landing/app/blog/page.tsx:5:1
+Module not found: Can't resolve '@/components/blog/BlogClouds'
+  3 | import { useEffect } from "react";
+  4 | import Link from "next/link";
+> 5 | import BlogClouds from "@/components/blog/BlogClouds";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import styles from "./page.module.css";
+  7 |
+  8 | const posts = [
+
+Import map: aliased to relative './components/blog/BlogClouds' inside of [project]/repos/toffee-landing
+
+Import traces:
+  Client Component Browser:
+    ./repos/toffee-landing/app/blog/page.tsx [Client Component Browser]
+    ./repos/toffee-landing/app/blog/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./repos/toffee-landing/app/blog/page.tsx [Client Component SSR]
+    ./repos/toffee-landing/app/blog/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/01f16_next_dist_2d01c3f0._.js:3127
+[ 1218346ms] [ERROR] ./repos/toffee-landing/app/blog/page.tsx:5:1
+Module not found: Can't resolve '@/components/blog/BlogClouds'
+  3 | import { useEffect } from "react";
+  4 | import Link from "next/link";
+> 5 | import BlogClouds from "@/components/blog/BlogClouds";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import styles from "./page.module.css";
+  7 |
+  8 | const posts = [
+
+Import map: aliased to relative './components/blog/BlogClouds' inside of [project]/repos/toffee-landing
+
+Import traces:
+  Client Component Browser:
+    ./repos/toffee-landing/app/blog/page.tsx [Client Component Browser]
+    ./repos/toffee-landing/app/blog/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./repos/toffee-landing/app/blog/page.tsx [Client Component SSR]
+    ./repos/toffee-landing/app/blog/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/01f16_next_dist_2d01c3f0._.js:3127

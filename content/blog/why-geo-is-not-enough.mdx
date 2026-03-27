@@ -1,0 +1,97 @@
+---
+title: "Why GEO Is Not Enough"
+description: "Most companies think GEO solves agentic commerce. It doesn't. Here's what the full stack actually looks like."
+date: "2026-03-20"
+---
+
+> Discovery gets you found. Infrastructure gets you paid.
+
+Agents are arriving in commerce. [More than half of all web traffic](https://cpl.thalesgroup.com/about-us/newsroom/2025-imperva-bad-bot-report-ai-internet-traffic) is already non-human. Automated bots and crawlers surpassed human traffic for the first time in a decade in 2024, according to Imperva's Bad Bot Report. [McKinsey projects](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants) that AI agents could mediate between $3 trillion and $5 trillion in global commerce by 2030. Morgan Stanley puts a more conservative U.S.-specific figure at up to $385 billion. Bain says 25% of U.S. e-commerce sales by the same year.
+Most companies' response so far has been GEO, Generative Engine Optimization. Structure your content so it appears in AI-generated answers. It's a reasonable first move. But it's not enough.
+
+
+## GEO is not enough
+
+Generative Engine Optimization is the discipline of structuring content so that AI systems (ChatGPT, Perplexity, Google AI Overviews, Claude) cite it in their responses. Where traditional SEO optimizes for blue-link rankings, GEO optimizes for inclusion in synthesized answers. [A 2023 paper by Aggarwal et al.](https://arxiv.org/abs/2311.09735) out of Princeton, IIT Delhi, and Georgia Tech (published at KDD 2024) demonstrated visibility gains of up to 40% through techniques like adding statistics, expert quotations, and inline citations. Keyword stuffing, a classic SEO move, actually *hurts* performance in generative engines.
+
+The commercial signals back this up. AI referral traffic surged 527% year-over-year in the first five months of 2025. ChatGPT now drives over 20% of referral traffic to major retailers. AI-referred visitors convert 38% more often than traditional search visitors. GEO works.
+
+But GEO solves a narrow problem. It helps agents *find* you. It does nothing to help them *buy* from you.
+
+Discovery is one layer. Understanding, execution, verification, and measurement all sit on top of it. Treating GEO as the whole strategy repeats the early SEO mistake: optimizing for visibility without building the system underneath. And the gap between AI discovery and actual purchase completion is wide. AI-driven traffic still accounts for roughly 1% of total e-commerce sessions. A study of 973 e-commerce sites found ChatGPT referrals convert 86% worse than affiliate links. Agents can find you. They often can't finish the job.
+
+You need the full stack.
+
+
+## The four pillars of an agent-ready internet
+
+If the internet were rebuilt for agents, what would it need? We keep coming back to four things: Observability, Integration, Analytics, and Trust.
+
+<OIATStack />
+
+### Observability
+
+You can't optimize what you can't see. Current analytics measure human behavior: clicks, sessions, page views. They say nothing about agents.
+
+Which agents are visiting? What are they parsing? Where do they break? What does a successful agent session even look like compared to an abandoned one?
+
+[Quantum Metric](https://www.quantummetric.com/blog/how-to-build-an-ai-agent-ready-website) has pointed out that the next visitor to your site may not be human. [Dark Visitors](https://darkvisitors.com/) is an early attempt to catalog and classify non-human traffic. A growing set of agent observability tools (Maxim AI, LangSmith, Arize AI) are starting to close this gap for back-end systems. But front-end, commerce-layer observability for agent traffic is still mostly absent.
+
+If you can't see what agents are doing on your site, you're guessing at everything else.
+
+### Integration
+
+Protocols are emerging fast. MCP for agent-to-tool communication, A2A for agent-to-agent coordination, UCP and checkout protocols for commerce. The space is consolidating quickly, with backing from Google, Anthropic, OpenAI, Visa, Mastercard, Stripe, and others.
+
+For commerce specifically: Google's UCP is backed by Visa, Mastercard, Stripe, Target, Walmart, and Wayfair. OpenAI's checkout protocol is live with Stripe. Stripe and Tempo launched the Machine Payments Protocol in March 2026 for agent-to-agent payments.
+
+Everyone is building protocols. Very few businesses are actually connecting them to their real systems.
+
+That gap, between protocol and implementation, is where most of the friction lives.
+
+### Analytics
+
+Observability tells you what happened. Analytics tells you what it means.
+
+Agent behavior looks nothing like human behavior. Agents don't browse. They evaluate and decide. They don't click through five product pages building purchase intent; they query a system, compare structured outputs, and either transact or leave. GEO can tell you whether agents are finding you, but it can't tell you what happens after that. Are they parsing your data correctly? Converting? Abandoning halfway through? These are distinct from human conversion funnels.
+
+We're watching the attention economy shift from humans to agents, and nobody has figured out how to measure the new version yet.
+
+### Trust and identity
+
+Once you open your product data to agents, you lose control over how it gets used.
+
+An agent scraping your catalog might be a price-comparison tool helping a shopper. It might also be a competitor mapping your inventory in real time. From your server's perspective, those look identical. How do you tell the difference? How do you decide what to expose and what to withhold? How do you keep proprietary pricing, stock levels, or customer data from leaking into contexts you never intended?
+
+These aren't hypothetical questions. They're the cost of making your systems agent-readable. The industry is starting to build frameworks for this (OWASP, Cloud Security Alliance, Visa, Mastercard), but the hard problems, distinguishing intent, controlling data exposure, and preserving privacy at the commerce layer, are mostly unsolved.
+
+
+## The timeline
+
+We're still early. Agentic commerce is moving fast and the landscape looks different every few months. Here's roughly how we expect it to play out.
+
+<TimelineScrubber />
+
+**Phase 1: Human-only (1990s–2010s).**
+The web was built for humans. Bots were noise. We blocked them.
+
+**Phase 2: Hybrid (2024–2026).**
+Agents show up, but the system hasn't adapted. Traffic is already majority non-human. The dominant corporate response is GEO, optimizing for visibility. Infrastructure is being built but not yet deployed at scale.
+
+This is where we are.
+
+**Phase 3: Dual-mode (2027+).**
+The web supports both humans and agents natively. Protocols mature. Identity frameworks are in production. Analytics diverge by audience type. [Gartner predicts](https://www.digitalcommerce360.com/2025/11/28/gartner-ai-agents-15-trillion-in-b2b-purchases-by-2028/) that by 2028, 90% of B2B buying will be AI-agent intermediated, representing over $15 trillion in B2B spend through AI agent exchanges.
+
+A note of honest calibration: Gartner explicitly labels these as "strategic predictions designed to help leaders prepare," deliberately provocative, not precise forecasts. The same Gartner also predicts that over 40% of agentic AI projects will be cancelled by end of 2027, citing escalating costs and unclear ROI. The ceiling is high. The path is not straight.
+
+Nobody knows exactly how this plays out. But infrastructure isn't something you bolt on when you need it. The companies that start building now won't have to rush when agents become the default.
+
+
+## What we're building
+
+GEO got you to the starting line. The rest of the stack doesn't exist yet.
+
+Observability, integration, analytics, trust. The infrastructure that agents need to actually transact, not just discover. Nobody is stitching these layers together for the businesses that have to deal with agent traffic today.
+
+That's what Toffee is for. We're building the infrastructure layer between your commerce systems and the agents arriving at your door. So you can see them, serve them, measure them, and control what they access.

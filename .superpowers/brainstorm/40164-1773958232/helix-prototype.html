@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helix Prototype</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'ABeeZee', sans-serif;
+    background: linear-gradient(180deg, #4671B3 0%, #D65EAA 100%);
+    background-attachment: fixed;
+    min-height: 300vh;
+    color: white;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  .section {
+    padding: 120px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Spacer so we can scroll into the section */
+  .spacer { height: 40vh; }
+
+  .heading {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: clamp(64px, 8vw, 120px);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 6vw, 80px);
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(24px, 3vw, 48px);
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .step.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .number {
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 1;
+    color: #C8B8E8;
+    opacity: 0.4;
+    flex-shrink: 0;
+    min-width: 80px;
+  }
+
+  .step-content { padding-top: 8px; }
+
+  .step-title {
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .step-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #C8C8C8;
+    max-width: 520px;
+  }
+
+  /* Helix container */
+  .helix-container {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .helix-svg {
+    width: 240px;
+    height: 420px;
+    overflow: visible;
+  }
+
+  /* Rung animations */
+  .rung {
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rung-node {
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Strand glow at phase 3 */
+  .strand {
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Pulse animation for final phase */
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes float-particle {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .glow-pulse {
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  /* Floating particles around helix */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  .particle.visible {
+    opacity: 1;
+    animation: float-particle 4s ease-in-out infinite;
+  }
+</style>
+</head>
+<body>
+
+<div class="spacer"></div>
+
+<section class="section">
+  <h2 class="heading">Embrace change,<br>increase revenue</h2>
+
+  <div class="layout">
+    <div class="steps">
+      <div class="step" data-step="1">
+        <span class="number">01</span>
+        <div class="step-content">
+          <h3 class="step-title">Analyze</h3>
+          <p class="step-desc">We audit your storefront through the eyes of AI agents — evaluating product data structure, metadata quality, and machine readability.</p>
+        </div>
+      </div>
+      <div class="step" data-step="2">
+        <span class="number">02</span>
+        <div class="step-content">
+          <h3 class="step-title">Learn</h3>
+          <p class="step-desc">Our platform identifies exactly what AI shopping agents look for and where your competitors are already optimized.</p>
+        </div>
+      </div>
+      <div class="step" data-step="3">
+        <span class="number">03</span>
+        <div class="step-content">
+          <h3 class="step-title">Optimize</h3>
+          <p class="step-desc">Toffee applies targeted changes that make your products discoverable, comparable, and purchasable by AI agents.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="helix-container" id="helixContainer">
+      <!-- Floating particles -->
+      <div class="particle" style="width:4px;height:4px;background:rgba(59,130,246,0.5);top:60px;left:20px;animation-delay:0s;"></div>
+      <div class="particle" style="width:3px;height:3px;background:rgba(200,184,232,0.4);top:180px;right:30px;animation-delay:1.5s;"></div>
+      <div class="particle" style="width:5px;height:5px;background:rgba(59,130,246,0.4);bottom:80px;left:30px;animation-delay:0.8s;"></div>
+      <div class="particle" style="width:3px;height:3px;background:rgba(200,184,232,0.3);bottom:150px;right:20px;animation-delay:2s;"></div>
+
+      <svg class="helix-svg" viewBox="0 0 240 420" id="helixSvg">
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+          <linearGradient id="strandGradientLeft" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.15)" id="strandLeftTop"/>
+            <stop offset="100%" stop-color="rgba(59,130,246,0.5)" id="strandLeftBottom"/>
+          </linearGradient>
+          <linearGradient id="strandGradientRight" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.15)" id="strandRightTop"/>
+            <stop offset="100%" stop-color="rgba(59,130,246,0.5)" id="strandRightBottom"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Left strand -->
+        <path class="strand" id="strandLeft"
+          d="M70,20 C140,60 60,100 130,140 C60,180 140,220 70,260 C140,300 60,340 130,380 C60,400 100,410 90,420"
+          stroke="url(#strandGradientLeft)" stroke-width="1.5" fill="none"/>
+
+        <!-- Right strand -->
+        <path class="strand" id="strandRight"
+          d="M170,20 C100,60 180,100 110,140 C180,180 100,220 170,260 C100,300 180,340 110,380 C180,400 140,410 150,420"
+          stroke="url(#strandGradientRight)" stroke-width="1.5" fill="none"/>
+
+        <!-- RUNGS: Phase 1 (Analyze) - broken, dashed, dim -->
+        <g class="rung-group" data-phase="1">
+          <line class="rung" x1="85" y1="40" x2="155" y2="40"
+            stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 6" id="rung1"/>
+          <line class="rung" x1="105" y1="70" x2="135" y2="70"
+            stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="3 5" id="rung2"/>
+          <line class="rung" x1="120" y1="100" x2="125" y2="100"
+            stroke="rgba(255,255,255,0.06)" stroke-width="1" id="rung3"/>
+          <line class="rung" x1="130" y1="130" x2="110" y2="130"
+            stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 6" id="rung4"/>
+        </g>
+
+        <!-- RUNGS: Phase 2 (Learn) - forming, partial -->
+        <g class="rung-group" data-phase="2">
+          <line class="rung" x1="80" y1="170" x2="160" y2="170"
+            stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="6 3" id="rung5"/>
+          <circle class="rung-node" cx="80" cy="170" r="0" fill="rgba(255,255,255,0.2)" id="node5a"/>
+          <circle class="rung-node" cx="160" cy="170" r="0" fill="rgba(255,255,255,0.2)" id="node5b"/>
+
+          <line class="rung" x1="95" y1="200" x2="145" y2="200"
+            stroke="rgba(255,255,255,0.15)" stroke-width="1.5" id="rung6"/>
+          <circle class="rung-node" cx="95" cy="200" r="0" fill="rgba(255,255,255,0.25)" id="node6a"/>
+          <circle class="rung-node" cx="145" cy="200" r="0" fill="rgba(255,255,255,0.25)" id="node6b"/>
+
+          <line class="rung" x1="70" y1="230" x2="170" y2="230"
+            stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="6 3" id="rung7"/>
+
+          <line class="rung" x1="85" y1="260" x2="155" y2="260"
+            stroke="rgba(255,255,255,0.18)" stroke-width="1.5" id="rung8"/>
+          <circle class="rung-node" cx="85" cy="260" r="0" fill="rgba(255,255,255,0.2)" id="node8a"/>
+          <circle class="rung-node" cx="155" cy="260" r="0" fill="rgba(255,255,255,0.2)" id="node8b"/>
+        </g>
+
+        <!-- RUNGS: Phase 3 (Optimize) - complete, glowing -->
+        <g class="rung-group" data-phase="3">
+          <line class="rung" x1="110" y1="290" x2="130" y2="290"
+            stroke="rgba(59,130,246,0.15)" stroke-width="2" id="rung9"/>
+          <circle class="rung-node" cx="110" cy="290" r="0" fill="rgba(59,130,246,0.3)" id="node9a"/>
+          <circle class="rung-node" cx="130" cy="290" r="0" fill="rgba(59,130,246,0.3)" id="node9b"/>
+
+          <line class="rung" x1="80" y1="320" x2="160" y2="320"
+            stroke="rgba(59,130,246,0.15)" stroke-width="2" id="rung10"/>
+          <circle class="rung-node" cx="80" cy="320" r="0" fill="rgba(59,130,246,0.3)" id="node10a"/>
+          <circle class="rung-node" cx="160" cy="320" r="0" fill="rgba(59,130,246,0.3)" id="node10b"/>
+
+          <line class="rung" x1="100" y1="350" x2="140" y2="350"
+            stroke="rgba(59,130,246,0.15)" stroke-width="2" id="rung11"/>
+          <circle class="rung-node" cx="100" cy="350" r="0" fill="rgba(59,130,246,0.3)" id="node11a"/>
+          <circle class="rung-node" cx="140" cy="350" r="0" fill="rgba(59,130,246,0.3)" id="node11b"/>
+
+          <line class="rung" x1="120" y1="380" x2="120" y2="380"
+            stroke="rgba(59,130,246,0.15)" stroke-width="2" id="rung12"/>
+          <circle class="rung-node" cx="115" cy="380" r="0" fill="rgba(59,130,246,0.3)" id="node12a"/>
+          <circle class="rung-node" cx="125" cy="380" r="0" fill="rgba(59,130,246,0.3)" id="node12b"/>
+        </g>
+
+        <!-- Glow overlay for phase 3 (hidden initially) -->
+        <ellipse id="helixGlow" cx="120" cy="340" rx="60" ry="80"
+          fill="rgba(59,130,246,0)" filter="url(#glow)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<script>
+  // Track which phase is active based on which steps are visible
+  let currentPhase = 0;
+
+  const steps = document.querySelectorAll('.step');
+  const particles = document.querySelectorAll('.particle');
+
+  // IntersectionObserver for steps
+  const stepObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const stepNum = parseInt(entry.target.dataset.step);
+        if (stepNum > currentPhase) {
+          currentPhase = stepNum;
+          animateHelix(currentPhase);
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  steps.forEach(step => stepObserver.observe(step));
+
+  function animateHelix(phase) {
+    if (phase >= 1) activatePhase1();
+    if (phase >= 2) activatePhase2();
+    if (phase >= 3) activatePhase3();
+  }
+
+  function activatePhase1() {
+    // Broken rungs become slightly more visible — the scan is happening
+    document.getElementById('rung1').setAttribute('stroke', 'rgba(255,255,255,0.18)');
+    document.getElementById('rung2').setAttribute('stroke', 'rgba(255,255,255,0.2)');
+    document.getElementById('rung3').setAttribute('stroke', 'rgba(255,255,255,0.15)');
+    document.getElementById('rung3').setAttribute('x2', '135');
+    document.getElementById('rung4').setAttribute('stroke', 'rgba(255,255,255,0.18)');
+
+    // Show some particles
+    particles[0].classList.add('visible');
+  }
+
+  function activatePhase2() {
+    // Rungs solidify, nodes appear
+    document.getElementById('rung5').setAttribute('stroke', 'rgba(255,255,255,0.3)');
+    document.getElementById('rung5').removeAttribute('stroke-dasharray');
+    document.getElementById('node5a').setAttribute('r', '3');
+    document.getElementById('node5b').setAttribute('r', '3');
+
+    document.getElementById('rung6').setAttribute('stroke', 'rgba(255,255,255,0.35)');
+    document.getElementById('rung6').setAttribute('stroke-width', '2');
+    document.getElementById('node6a').setAttribute('r', '3.5');
+    document.getElementById('node6b').setAttribute('r', '3.5');
+
+    document.getElementById('rung7').setAttribute('stroke', 'rgba(255,255,255,0.3)');
+    document.getElementById('rung7').removeAttribute('stroke-dasharray');
+
+    document.getElementById('rung8').setAttribute('stroke', 'rgba(255,255,255,0.35)');
+    document.getElementById('node8a').setAttribute('r', '3');
+    document.getElementById('node8b').setAttribute('r', '3');
+
+    // Strands get brighter in middle
+    document.getElementById('strandLeftTop').setAttribute('stop-color', 'rgba(255,255,255,0.25)');
+    document.getElementById('strandRightTop').setAttribute('stop-color', 'rgba(255,255,255,0.25)');
+
+    particles[1].classList.add('visible');
+    particles[2].classList.add('visible');
+  }
+
+  function activatePhase3() {
+    // Bottom rungs fully glow
+    const glowColor = 'rgba(59,130,246,0.6)';
+    const nodeColor = 'rgba(59,130,246,0.7)';
+
+    document.getElementById('rung9').setAttribute('stroke', glowColor);
+    document.getElementById('rung9').setAttribute('x1', '100');
+    document.getElementById('rung9').setAttribute('x2', '140');
+    document.getElementById('node9a').setAttribute('r', '4');
+    document.getElementById('node9a').setAttribute('fill', nodeColor);
+    document.getElementById('node9b').setAttribute('r', '4');
+    document.getElementById('node9b').setAttribute('fill', nodeColor);
+
+    document.getElementById('rung10').setAttribute('stroke', glowColor);
+    document.getElementById('node10a').setAttribute('r', '4.5');
+    document.getElementById('node10a').setAttribute('fill', nodeColor);
+    document.getElementById('node10b').setAttribute('r', '4.5');
+    document.getElementById('node10b').setAttribute('fill', nodeColor);
+
+    document.getElementById('rung11').setAttribute('stroke', glowColor);
+    document.getElementById('rung11').setAttribute('x1', '90');
+    document.getElementById('rung11').setAttribute('x2', '150');
+    document.getElementById('node11a').setAttribute('r', '4');
+    document.getElementById('node11a').setAttribute('fill', nodeColor);
+    document.getElementById('node11b').setAttribute('r', '4');
+    document.getElementById('node11b').setAttribute('fill', nodeColor);
+
+    document.getElementById('rung12').setAttribute('stroke', glowColor);
+    document.getElementById('rung12').setAttribute('x1', '105');
+    document.getElementById('rung12').setAttribute('x2', '135');
+    document.getElementById('node12a').setAttribute('r', '3.5');
+    document.getElementById('node12a').setAttribute('fill', nodeColor);
+    document.getElementById('node12b').setAttribute('r', '3.5');
+    document.getElementById('node12b').setAttribute('fill', nodeColor);
+
+    // Strands glow at bottom
+    document.getElementById('strandLeft').setAttribute('stroke-width', '2');
+    document.getElementById('strandRight').setAttribute('stroke-width', '2');
+
+    // Background glow
+    document.getElementById('helixGlow').setAttribute('fill', 'rgba(59,130,246,0.04)');
+
+    // All particles
+    particles[3].classList.add('visible');
+
+    // Add pulse class to bottom nodes after a delay
+    setTimeout(() => {
+      document.querySelectorAll('[data-phase="3"] .rung-node').forEach(node => {
+        node.classList.add('glow-pulse');
+      });
+    }, 800);
+  }
+</script>
+</body>
+</html>

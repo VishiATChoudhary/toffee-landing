@@ -1,0 +1,223 @@
+<h2>Dynamic right-side figure for Analyze / Learn / Optimize</h2>
+<p class="subtitle">A single tall visual that transforms as the user scrolls past each step. Click the concept you like most.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(180deg, #4671B3 0%, #9B5BA8 50%, #D65EAA 100%); padding: 24px 20px; min-height: 420px; position: relative; overflow: hidden; border-radius: 8px;">
+      <!-- Phase 1: Scattered fragments -->
+      <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); text-align: center;">
+        <div style="font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.4); margin-bottom: 12px;">ANALYZE</div>
+        <div style="position: relative; width: 160px; height: 100px;">
+          <div style="position: absolute; top: 5px; left: 10px; width: 35px; height: 25px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; transform: rotate(-12deg); background: rgba(255,255,255,0.05);"></div>
+          <div style="position: absolute; top: 20px; right: 15px; width: 40px; height: 20px; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; transform: rotate(8deg); background: rgba(255,255,255,0.04);"></div>
+          <div style="position: absolute; bottom: 10px; left: 30px; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.18); border-radius: 4px; transform: rotate(-5deg); background: rgba(255,255,255,0.04);"></div>
+          <div style="position: absolute; top: 40px; left: 60px; width: 25px; height: 18px; border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; transform: rotate(15deg); background: rgba(255,255,255,0.03);"></div>
+          <div style="position: absolute; bottom: 5px; right: 20px; width: 28px; height: 22px; border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; transform: rotate(-8deg); background: rgba(255,255,255,0.04);"></div>
+          <!-- scan line -->
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,0.6), transparent); box-shadow: 0 0 12px rgba(59,130,246,0.3);"></div>
+        </div>
+      </div>
+
+      <!-- Phase 2: Forming structure -->
+      <div style="position: absolute; top: 150px; left: 50%; transform: translateX(-50%); text-align: center;">
+        <div style="font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.4); margin-bottom: 12px;">LEARN</div>
+        <div style="position: relative; width: 160px; height: 100px;">
+          <!-- Grid forming -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px;">
+            <div style="height: 28px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; background: rgba(255,255,255,0.06);"></div>
+            <div style="height: 28px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; background: rgba(255,255,255,0.06);"></div>
+            <div style="height: 28px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; background: rgba(255,255,255,0.04); border-style: dashed;"></div>
+            <div style="height: 28px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; background: rgba(255,255,255,0.06);"></div>
+            <div style="height: 28px; border: 1px solid rgba(255,255,255,0.18); border-radius: 4px; background: rgba(255,255,255,0.03); border-style: dashed;"></div>
+            <div style="height: 28px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; background: rgba(255,255,255,0.06);"></div>
+          </div>
+          <!-- Connection lines -->
+          <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;" viewBox="0 0 160 100">
+            <line x1="35" y1="45" x2="80" y2="45" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+            <line x1="80" y1="45" x2="125" y2="45" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Phase 3: Optimized, glowing -->
+      <div style="position: absolute; top: 290px; left: 50%; transform: translateX(-50%); text-align: center;">
+        <div style="font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.4); margin-bottom: 12px;">OPTIMIZE</div>
+        <div style="position: relative; width: 160px; height: 100px;">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px;">
+            <div style="height: 28px; border: 1px solid rgba(59,130,246,0.5); border-radius: 4px; background: rgba(59,130,246,0.1); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+            <div style="height: 28px; border: 1px solid rgba(59,130,246,0.5); border-radius: 4px; background: rgba(59,130,246,0.1); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+            <div style="height: 28px; border: 1px solid rgba(59,130,246,0.5); border-radius: 4px; background: rgba(59,130,246,0.1); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+            <div style="height: 28px; border: 1px solid rgba(59,130,246,0.5); border-radius: 4px; background: rgba(59,130,246,0.1); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+            <div style="height: 28px; border: 1px solid rgba(59,130,246,0.5); border-radius: 4px; background: rgba(59,130,246,0.1); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+            <div style="height: 28px; border: 1px solid rgba(59,130,246,0.5); border-radius: 4px; background: rgba(59,130,246,0.1); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+          </div>
+          <!-- Checkmark -->
+          <div style="position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; background: rgba(34,197,94,0.25); border: 1px solid rgba(34,197,94,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: rgba(34,197,94,0.9);">&#10003;</div>
+        </div>
+      </div>
+
+      <!-- Vertical flow line -->
+      <svg style="position: absolute; left: 50%; transform: translateX(-50%); top: 0; height: 100%; width: 20px; pointer-events: none; opacity: 0.2;" viewBox="0 0 20 420">
+        <line x1="10" y1="120" x2="10" y2="160" stroke="white" stroke-width="1" stroke-dasharray="2 4"/>
+        <line x1="10" y1="260" x2="10" y2="300" stroke="white" stroke-width="1" stroke-dasharray="2 4"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>A. "Data Tiles" - Chaos to Order</h3>
+      <p>Scattered, rotated data tiles (representing messy product data) gradually snap into a clean grid as you scroll. Phase 1: tiles float randomly. Phase 2: tiles start aligning with dashed placeholders showing gaps. Phase 3: a complete, glowing grid with all slots filled. Smooth CSS transforms driven by scroll position.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(180deg, #4671B3 0%, #9B5BA8 50%, #D65EAA 100%); padding: 24px 20px; min-height: 420px; position: relative; overflow: hidden; border-radius: 8px;">
+      <!-- Vertical DNA-like helix -->
+      <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" viewBox="0 0 200 420">
+        <!-- Left strand -->
+        <path d="M60,30 C120,60 80,90 140,120 C80,150 120,180 60,210 C120,240 80,270 140,300 C80,330 120,360 60,390" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+        <!-- Right strand -->
+        <path d="M140,30 C80,60 120,90 60,120 C120,150 80,180 140,210 C80,240 120,270 60,300 C120,330 80,360 140,390" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+
+        <!-- Rungs - top section (dim, broken) -->
+        <line x1="75" y1="45" x2="125" y2="45" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="95" y1="75" x2="105" y2="75" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <line x1="110" y1="105" x2="90" y2="105" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+
+        <!-- Rungs - middle section (forming) -->
+        <line x1="90" y1="165" x2="110" y2="165" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <line x1="75" y1="195" x2="125" y2="195" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+        <line x1="100" y1="225" x2="100" y2="225" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+
+        <!-- Rungs - bottom section (complete, glowing) -->
+        <line x1="110" y1="285" x2="90" y2="285" stroke="rgba(59,130,246,0.5)" stroke-width="2"/>
+        <line x1="70" y1="315" x2="130" y2="315" stroke="rgba(59,130,246,0.6)" stroke-width="2"/>
+        <line x1="90" y1="345" x2="110" y2="345" stroke="rgba(59,130,246,0.5)" stroke-width="2"/>
+        <line x1="120" y1="375" x2="80" y2="375" stroke="rgba(59,130,246,0.6)" stroke-width="2"/>
+
+        <!-- Glow nodes bottom -->
+        <circle cx="70" cy="315" r="3" fill="rgba(59,130,246,0.5)"/>
+        <circle cx="130" cy="315" r="3" fill="rgba(59,130,246,0.5)"/>
+        <circle cx="110" cy="285" r="3" fill="rgba(59,130,246,0.4)"/>
+        <circle cx="90" cy="285" r="3" fill="rgba(59,130,246,0.4)"/>
+        <circle cx="90" cy="345" r="3" fill="rgba(59,130,246,0.4)"/>
+        <circle cx="110" cy="345" r="3" fill="rgba(59,130,246,0.4)"/>
+      </svg>
+
+      <!-- Phase labels -->
+      <div style="position: absolute; top: 55px; right: 15px; font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.3);">FRAGMENTED</div>
+      <div style="position: absolute; top: 185px; right: 15px; font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.35);">CONNECTING</div>
+      <div style="position: absolute; top: 320px; right: 15px; font-size: 9px; letter-spacing: 2px; color: rgba(59,130,246,0.6);">OPTIMIZED</div>
+    </div>
+    <div class="card-body">
+      <h3>B. "The Helix" - Data DNA Assembling</h3>
+      <p>A vertical double-helix (like DNA) that starts broken and incomplete at the top, gradually repairs itself as you scroll, with rungs connecting and nodes glowing blue at the bottom. Metaphor: your product data's "genetic code" being completed. The helix gently rotates on scroll. Ethereal and fits the dreamy vibe perfectly.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(180deg, #4671B3 0%, #9B5BA8 50%, #D65EAA 100%); padding: 24px 20px; min-height: 420px; position: relative; overflow: hidden; border-radius: 8px;">
+      <!-- Vertical bar chart morphing -->
+
+      <!-- Phase 1: Messy, uneven bars -->
+      <div style="position: absolute; top: 30px; left: 50%; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 6px; height: 90px;">
+        <div style="width: 14px; height: 25px; background: rgba(255,255,255,0.1); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.15);"></div>
+        <div style="width: 14px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.15);"></div>
+        <div style="width: 14px; height: 15px; background: rgba(255,255,255,0.1); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.15);"></div>
+        <div style="width: 14px; height: 45px; background: rgba(255,255,255,0.1); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.15);"></div>
+        <div style="width: 14px; height: 10px; background: rgba(239,68,68,0.15); border-radius: 3px 3px 0 0; border: 1px solid rgba(239,68,68,0.3);"></div>
+        <div style="width: 14px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.15);"></div>
+      </div>
+      <div style="position: absolute; top: 125px; left: 50%; transform: translateX(-50%); font-size: 8px; color: rgba(255,255,255,0.3); letter-spacing: 1px;">CURRENT STATE</div>
+
+      <!-- Phase 2: Bars with target lines -->
+      <div style="position: absolute; top: 165px; left: 50%; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 6px; height: 90px; position: relative;">
+        <div style="position: absolute; top: 165px; left: 50%; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 6px; height: 90px;">
+          <div style="width: 14px; height: 35px; background: rgba(255,255,255,0.12); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.2); position: relative;">
+            <div style="position: absolute; top: -20px; left: -2px; right: -2px; height: 1px; border-top: 1px dashed rgba(251,191,36,0.5);"></div>
+          </div>
+          <div style="width: 14px; height: 60px; background: rgba(255,255,255,0.12); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.2); position: relative;">
+            <div style="position: absolute; top: -10px; left: -2px; right: -2px; height: 1px; border-top: 1px dashed rgba(251,191,36,0.5);"></div>
+          </div>
+          <div style="width: 14px; height: 30px; background: rgba(255,255,255,0.12); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.2); position: relative;">
+            <div style="position: absolute; top: -35px; left: -2px; right: -2px; height: 1px; border-top: 1px dashed rgba(251,191,36,0.5);"></div>
+          </div>
+          <div style="width: 14px; height: 50px; background: rgba(255,255,255,0.12); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.2); position: relative;">
+            <div style="position: absolute; top: -15px; left: -2px; right: -2px; height: 1px; border-top: 1px dashed rgba(251,191,36,0.5);"></div>
+          </div>
+          <div style="width: 14px; height: 25px; background: rgba(251,191,36,0.1); border-radius: 3px 3px 0 0; border: 1px solid rgba(251,191,36,0.3); position: relative;">
+            <div style="position: absolute; top: -40px; left: -2px; right: -2px; height: 1px; border-top: 1px dashed rgba(251,191,36,0.5);"></div>
+          </div>
+          <div style="width: 14px; height: 45px; background: rgba(255,255,255,0.12); border-radius: 3px 3px 0 0; border: 1px solid rgba(255,255,255,0.2); position: relative;">
+            <div style="position: absolute; top: -12px; left: -2px; right: -2px; height: 1px; border-top: 1px dashed rgba(251,191,36,0.5);"></div>
+          </div>
+        </div>
+      </div>
+      <div style="position: absolute; top: 260px; left: 50%; transform: translateX(-50%); font-size: 8px; color: rgba(255,255,255,0.3); letter-spacing: 1px;">VS COMPETITORS</div>
+
+      <!-- Phase 3: All bars maxed, glowing -->
+      <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 6px; height: 90px;">
+        <div style="width: 14px; height: 70px; background: linear-gradient(180deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); border-radius: 3px 3px 0 0; border: 1px solid rgba(59,130,246,0.4); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+        <div style="width: 14px; height: 80px; background: linear-gradient(180deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); border-radius: 3px 3px 0 0; border: 1px solid rgba(59,130,246,0.4); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+        <div style="width: 14px; height: 75px; background: linear-gradient(180deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); border-radius: 3px 3px 0 0; border: 1px solid rgba(59,130,246,0.4); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+        <div style="width: 14px; height: 85px; background: linear-gradient(180deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); border-radius: 3px 3px 0 0; border: 1px solid rgba(59,130,246,0.4); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+        <div style="width: 14px; height: 78px; background: linear-gradient(180deg, rgba(34,197,94,0.3), rgba(34,197,94,0.1)); border-radius: 3px 3px 0 0; border: 1px solid rgba(34,197,94,0.4); box-shadow: 0 0 8px rgba(34,197,94,0.15);"></div>
+        <div style="width: 14px; height: 82px; background: linear-gradient(180deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); border-radius: 3px 3px 0 0; border: 1px solid rgba(59,130,246,0.4); box-shadow: 0 0 8px rgba(59,130,246,0.15);"></div>
+      </div>
+      <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 8px; color: rgba(59,130,246,0.6); letter-spacing: 1px;">OPTIMIZED</div>
+    </div>
+    <div class="card-body">
+      <h3>C. "The Metrics Rise" - Bar Chart Coming Alive</h3>
+      <p>A vertical series of bar charts that tell the story. Top: jagged, uneven bars with red gaps (your current messy data). Middle: same bars with dashed target lines showing competitor benchmarks. Bottom: all bars risen past the targets, glowing blue. Each bar animates upward as it enters the viewport. Data-driven and concrete.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="d" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(180deg, #4671B3 0%, #9B5BA8 50%, #D65EAA 100%); padding: 24px 20px; min-height: 420px; position: relative; overflow: hidden; border-radius: 8px;">
+      <!-- Orb phases -->
+
+      <!-- Phase 1: Scattered particles -->
+      <div style="position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: 120px; height: 120px; position: relative;">
+        <div style="position: absolute; top: 10px; left: 20px; width: 6px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 40px; left: 80px; width: 4px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 70px; left: 35px; width: 8px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 25px; left: 55px; width: 5px; height: 5px; background: rgba(255,255,255,0.18); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 80px; left: 70px; width: 7px; height: 7px; background: rgba(255,255,255,0.22); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 55px; left: 15px; width: 3px; height: 3px; background: rgba(255,255,255,0.12); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 15px; left: 90px; width: 5px; height: 5px; background: rgba(255,255,255,0.16); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 90px; left: 50px; width: 4px; height: 4px; background: rgba(255,255,255,0.14); border-radius: 50%;"></div>
+        <!-- Faint orbit ring -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border: 1px dashed rgba(255,255,255,0.08); border-radius: 50%;"></div>
+      </div>
+
+      <!-- Phase 2: Coalescing -->
+      <div style="position: absolute; top: 185px; left: 50%; transform: translateX(-50%); width: 120px; height: 120px;">
+        <!-- Tighter cluster with orbit -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border: 1px solid rgba(255,255,255,0.12); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border: 1px solid rgba(255,255,255,0.08); border-radius: 50%;"></div>
+        <!-- Particles on orbits -->
+        <div style="position: absolute; top: 15px; left: 55px; width: 6px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 55px; left: 95px; width: 5px; height: 5px; background: rgba(255,255,255,0.25); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 85px; left: 40px; width: 7px; height: 7px; background: rgba(255,255,255,0.3); border-radius: 50%;"></div>
+        <div style="position: absolute; top: 50px; left: 20px; width: 4px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+      </div>
+
+      <!-- Phase 3: Solid glowing orb -->
+      <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 120px; height: 120px;">
+        <!-- Outer glow -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%); border-radius: 50%;"></div>
+        <!-- Orb -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: radial-gradient(circle at 35% 35%, rgba(200,184,232,0.5) 0%, rgba(59,130,246,0.3) 50%, rgba(59,130,246,0.1) 100%); border-radius: 50%; box-shadow: 0 0 30px rgba(59,130,246,0.2), 0 0 60px rgba(59,130,246,0.1);"></div>
+        <!-- Subtle orbit ring -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(60deg); width: 90px; height: 90px; border: 1px solid rgba(59,130,246,0.2); border-radius: 50%;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D. "The Orb" - Particles to Energy</h3>
+      <p>Scattered luminous particles at the top slowly coalesce into orbiting rings in the middle, then collapse into a single glowing orb at the bottom. The orb pulses gently. Metaphor: dispersed, unstructured data condensing into a powerful, unified asset. Very ambient, almost meditative. Pairs beautifully with the cloud aesthetic you already have.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top: 24px;">All of these would be scroll-driven — the visual morphs as each step enters the viewport.</p>
