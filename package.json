@@ -10,6 +10,7 @@
   "dependencies": {
     "@fontsource/abeezee": "^5.2.8",
     "@tailwindcss/postcss": "^4.2.1",
+    "@toffee-at/sdk": "^0.1.2",
     "@vercel/postgres": "^0.10.0",
     "class-variance-authority": "^0.7.1",
     "gray-matter": "^4.0.3",

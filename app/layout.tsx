@@ -3,6 +3,7 @@ import "@fontsource/abeezee/400.css";
 import "@fontsource/abeezee/400-italic.css";
 import "./globals.css";
 import WaitlistModalProvider from "@/components/WaitlistModal";
+import ToffeeProvider from "@/components/ToffeeProvider";
 
 export const metadata: Metadata = {
   title: "Toffee — E-commerce AI Agent Optimization",
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <WaitlistModalProvider>{children}</WaitlistModalProvider>
+        <ToffeeProvider />
       </body>
     </html>
   );
